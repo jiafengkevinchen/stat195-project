@@ -1,0 +1,37 @@
+\documentclass[12pt]{article}
+\usepackage{macros}
+
+
+\title{Prediction of the 2018 Midterm Elections}
+\author{Jiafeng Chen\thanks{Harvard College, \url{jiafengchen@college.harvard.edu}} \and Joon Yang\thanks{Harvard College, \url{joonhyukyang@college.harvard.edu}}}
+\begin{document}
+\maketitle
+\section{Introduction}
+
+\section{Statistical model and prediction function}
+Let $Y_i = \bm 1(\text{Democrats win in district $i$})$ be the election outcome in district $i$. Let $X_i$ be a vector of covariates for that district. Assume the simple GLM \begin{equation}
+    \label{eq:logistic}
+    Y_i \sim \Bern(\sigma(X_i\beta)) \tag{Logistic Regression}
+\end{equation}
+where $\sigma$ is the sigmoid function. This yields $p = \sigma(X_i\beta)$ as a natural prior mean for the prediction in order to utilize polling data for the 2018 election. We add usual machine learning bells and whistles such as LASSO/ridge regularization, cross validation, etc.
+
+A cooler alternative would be to use some sort of Beta model and write \begin{align*}
+p &\sim \Beta(a,b) \\
+Y_i &\sim \Bern(p)
+\end{align*}
+where \[
+\colvecb{2}{a}{b} = g(X\beta),
+\]
+for some well-chosen function $g$---a nontrivial task. This allows for $\hat a, \hat b$ that directly play nicely with new polling data. However, since $\Beta(a,b)\dto \Norm(\mu,\sigma^2)$ as $a,b\to \infty$, we might be able to simply replace $p$ as being drawn from $\Norm(X\beta, \sigma^2)$ and write a Bayesian model whose parameters are $\theta = (\beta, \sigma^2)$. Basically here the underlying $\Beta(a,b)$ corresponds to the ``fundamentals'' in 538 model, and adjustments are done via the polling data we see.  
+
+
+
+    
+\section{Fitting Method}
+
+\section{Results}
+
+\section{Uncertainty and robustness}
+
+\section{Conclusion}
+\end{document}
