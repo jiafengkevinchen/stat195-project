@@ -1,44 +1,49 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 \usepackage{macros}
 
-
+% \singlespacing
+% \newgeometry{margin=1in}
 \title{Prediction of the 2018 Midterm Elections}
 \author{Jiafeng Chen\thanks{Harvard College, \url{jiafengchen@college.harvard.edu}} \and Joon Yang\thanks{Harvard College, \url{joonhyukyang@college.harvard.edu}}}
 \begin{document}
 \maketitle
-\section{Introduction}
+% \section{Introduction}
 
-\section{Statistical model and prediction function}
-Let \[Y_i = \frac{\text{Republican}\%}{\text{Republican}\% + \text{Democrat}\%}\] be the proportion of Republican vote share between the major parties in district $i$.\footnote{Assuming districts have no time dimension: i.e. Alabama-01 is represented by different $i,j$'s across two different years.} Let $x_i$ be a list of features for the district. Assume the (misspecified) probability model \[
-Y_i \sim \Norm(\mu_{i0}, \sigma_0^2).
-\]
-where $\mu_{i0} = x_i^T \beta_0$. The model is misspecified since $Y_i \in [0,1]$ but Normal is supported on $\R$. We justify the misspecification by noting that $\Beta(a,b) \dto \Norm(\mu,\sigma^2)$ where $a, b \to \infty$ in such a way that expectation and variance are fixed at $\mu,\sigma$.\footnote{Alternatively, we could fit some generalized linear model with link function implied by a Beta distribution, but Normal linear model provides a lot of computational ease.}
+% \section{Statistical model and prediction function}
+Let \[Y_i = \frac{\text{Republican}\% }{\text{Republican}\% + \text{Democrat}\%}\] be the proportion of Republican vote share between the major parties in district $i$.\footnote{Assuming districts have no time dimension: i.e. Alabama-01 is represented by different $i,j$'s across two different years. We also assume for simplicity that third parties never win elections, which seems accurate in the case for 2018.} Let $x_i$ be a list of features for the district. Assume the (misspecified) linear probability model
+$Y_i \sim \Norm(\mu_{i0}, \sigma_0^2),$ where $\mu_{i0} = x_i^T \beta_0$. The model is misspecified since $Y_i \in [0,1]$ but Normal is supported on $\R$. We justify the misspecification by noting that $\Beta(a,b) \dto \Norm(\mu,\sigma^2)$ where $a, b \to \infty$ in such a way that expectation and variance are fixed at $\mu,\sigma^2$.\footnote{Alternatively, we could fit some generalized linear model with link function implied by a Beta distribution, but Normal linear model provides a lot of computational ease.}
 Let \begin{align*}
 \hat \beta_0 = \argmin_\beta \, \sum_{i=1}^{N} (y_i - x_i^T \beta)^2 + \lambda\pr{\alpha \norm{\beta}_1 + (1-\alpha) \norm{\beta}_2}
 \end{align*}
-be fitted with an elastic net regularizer over the training data, where $\lambda$ is chosen via $K$-fold cross validation and $\alpha$ is some fixed constant, say $0.9$. Let $\hat \sigma_0^2 = \sum_{i=1}^N (y_i - x_i^T \hat\beta_0)^2$ be fitted as the variance of the residuals. Let $\hat \mu_{i0} = x_i^T \hat \beta_0$. 
+be fitted with an elastic net regularizer over the training data, where $\lambda$ is chosen via $K$-fold cross validation and $\alpha$ is some fixed constant, say $0.9$. Let $\hat \sigma_{0i}^2 = \sum (y_j - x_j^T \hat\beta_0)^2$ be fitted as the variance of the residuals, where the sum could be over districts in the same state, over all districts, or some kernel-weighted estimator. For simplicity, we stratify variance estimate by state.\footnote{One could also estimate variance over a holdout set, which might improve bias.} Let $\hat \mu_{i0} = x_i^T \hat \beta_0$.
 
-For a district that corresponds to an upcoming election, we form a prior \[Y_i \sim \Norm(\hat \mu_{i0}, \hat \sigma_0^2).\]
+For a district that corresponds to an upcoming election, we form a prior 
+$Y_i\sim \Norm(\hat \mu_{i0}, \hat \sigma_0^2),$ or in vector form \[
+Y \sim \Norm(\hat \mu_0, \hat \Sigma_0)
+\]
 Note that in such a formulation, we ignore the sampling variance of $\hat \mu_{i0}$ and $\hat \sigma_0^2$,\footnote{The elastic net regularizer in the fitting method for $\beta$ makes the sampling variance of $\hat\beta_0$ difficult to compute.} instead forming a plug-in estimate, appealing to the law of large numbers.\footnote{From this point on, we drop the hat on $\mu_{i0}, \sigma_0$.} To obtain a more accurate and timely prediction for the district, we update the prior in two steps.  
 
-First, to take into account the ``blue wave,'' or the general prediction for the Democratic party to win, we update our prior via the generic congressional ballot.\footnote{\url{https://projects.fivethirtyeight.com/congress-generic-ballot-polls/}} Formally, we model generic congressional poll as $Z_{G} \mid Y_i \sim \Norm(Y_i, \sigma_G^2),$ where $\sigma_G^2$ is estimated from the 90\% confidence interval provided by FiveThirtyEight. We update our prior to form an intermediate posterior: \[
-Y_i \mid Z_G \sim \Norm \pr{
-    \frac{\sigma_0^2}{\sigma_G^2 + \sigma_0^2} Z_G + \frac{\sigma_G^2}{ \sigma_0^2 + \sigma_G^2} \mu_{i0}, \pr{\sigma_G^{-2} + \sigma_0^{-2}}^{-1}
-} =: \Norm(\mu_{1i}, \sigma_{1i}^2).
+First, to take into account the ``blue wave,'' we update our prior via the generic congressional ballot.\footnote{\url{https://projects.fivethirtyeight.com/congress-generic-ballot-polls/}} Formally, we model generic congressional poll as $Z_{G} \mid Y_i \sim \Norm(Y_i, \sigma_G^2),$ where $\sigma_G^2$ is estimated from the 90\% confidence interval provided by FiveThirtyEight. We have the following data generating process: \begin{align*}
+Y &\sim \Norm(\hat \mu_0, \hat \Sigma_0)\\
+Z_G \mid Y &\sim \Norm\pr{n^{-1}1^T Y, \sigma_G^2}
+\end{align*}
+
+We update our prior to form an intermediate posterior: \[
+Y \mid Z_G \sim \Norm(\mu_1, \Sigma_1).
 \]
 From now on, we drop the conditioning on $Z_G$.
 
-Second, for some districts, we observe a number of district-specific polls $Z_{i1},\ldots,Z_{iJ}$. The variance across polls is much higher than implied by a simple Beta-Binomial model, where one assumes that each poll is an independent $\Bin(n_j,p)$ where $p$ is sampled from a Beta (again, approximately Normal) prior. As such, we hesitate from using a simple Beta-Binomial updating procedure and opt for the following model: We assume that poll $j$ has an independent bias $\epsilon_j \sim \Norm(0, \sigma^2_p)$, where $\sigma_p$ is estimated as the empirical variance of poll outcomes in a district: \begin{align*}
-Y_i &\sim \Norm(\mu_{1i}, \sigma^2_{1}) \quad \epsilon_j \sim \Norm(0, \sigma_p^2) \\
-Z_{ij}\mid Y_i &\sim n^{-1} \cdot \Bin(n, Y_i + \epsilon_j).
+Second, for some districts, we observe a number of district-specific polls $Z_{i1},\ldots,Z_{iJ_i}$.\footnote{In practice, we take the $J$ most recent polls (if available) in district $i$, where $J = 10$.} The variance across polls is much higher than implied by a simple Beta-Binomial model, where one assumes that each poll is an independent $\Bin(n_j,p)$ where $p$ is sampled from a Beta (again, approximately Normal) prior. As such, we hesitate from using a simple Beta-Binomial updating procedure and opt for the following model: We assume that poll $j$ has an independent bias $\epsilon_j \sim \Norm(0, \sigma^2_p)$, where $\sigma_p$ is estimated as the empirical variance of poll outcomes in a district: \begin{align*}
+Y &\sim \Norm(\mu_1, \Sigma_1) \quad \epsilon_j \sim \Norm(0, \sigma_p^2) \\
+Z_{ij}\mid Y_i, \epsilon_j &\sim n^{-1} \cdot \Bin(n, e_i^T Y + \epsilon_j),
 \end{align*}
-It's somewhat difficult to compute the posterior $Y_i \mid Z_{i1}, \ldots, Z_{iJ}$. Instead we may assume the misspecified model \begin{align*}
-Y_i &\sim \Norm(\mu_{1i}, \sigma_{1}^2) \\
-Z_{ij} \mid Y_i &\sim \Norm\pr{Y_i, \frac{1}{4n_j} + \sigma_p^2},
+where $e_i$ is the $i$th standard basis vector. It's somewhat difficult to compute the posterior $Y \mid Z_{i1}, \ldots, Z_{iJ}$. Instead we may assume the misspecified model, justified as $n^{-1}\Bin(n, p)$ is approximately Normal when $n$ is large. \begin{align*}
+Y &\sim \Norm(\mu_{1}, \Sigma_{1}) \\
+Z_{ij} \mid Y &\sim \Norm\pr{e_i^TY, \frac{1}{4n_j} + \sigma_p^2},
 \end{align*}
-so as to (a) use a Normal model and (b) ignore the dependence of $\var(Z_{ij})$ on $Y_i$. We now have the posterior by, say, sequentially Bayesian updating: \[
-Y_i \mid Z_{i1},\ldots,Z_{iJ} \sim \Norm\pr{
-    \mu_{2i}, \sigma_{2i}^2
+so as to (a) take advantage of Normal-Normal conjugacy and (b) ignore the dependence of $\var(Z_{ij})$ on $Y_i$. We now have the posterior by, say, sequentially Bayesian updating: \[
+Y \mid (Z_{i1},\ldots,Z_{iJ_i})_{i=1}^n \sim \Norm\pr{
+    \mu_{2}, \Sigma_{2}
 }.
 \]
 We predict $\hat Y_i = \mu_{2i}$, and, naturally \[
@@ -49,11 +54,11 @@ We predict $\hat Y_i = \mu_{2i}$, and, naturally \[
 \]
 
     
-\section{Fitting Method}
+% \section{Fitting Method}
 
-\section{Results}
+% \section{Results}
 
-\section{Uncertainty and robustness}
+% \section{Uncertainty and robustness}
 
-\section{Conclusion}
+% \section{Conclusion}
 \end{document}

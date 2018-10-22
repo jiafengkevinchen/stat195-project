@@ -1,0 +1,283 @@
+Const,0.04134092179073312
+rep_incumbent,0.04626429210025038
+dem_incumbent,-0.06297076498105646
+log_med_income,0.007715546681318993
+minority_percentage,-0.542543203214223
+percent_bachelor_or_above,-0.02728004058513891
+Alabama,0.0705891679442237
+Alaska,0.029166242623440808
+Arkansas,0.0479338727169753
+California,-0.012993467672172779
+Connecticut,-0.07115737809230828
+Delaware,-0.048224754146744785
+Florida,0.03179261827576151
+Georgia,0.17670536049490224
+Idaho,0.010824835984197754
+Illinois,-0.00023591864874299853
+Kansas,0.08127681995113195
+Kentucky,0.08450848944411707
+Louisiana,0.06958512029085231
+Michigan,-0.02050943097312515
+Minnesota,-0.06657164163551382
+Missouri,0.04220094615894061
+Nebraska,0.08147398522770942
+New Hampshire,-0.045818000839064205
+Ohio,-0.0023836421368558128
+Oklahoma,0.03666852333078539
+South Carolina,0.11334212071423175
+Tennessee,0.05228845413375615
+Texas,-0.04073570702746147
+Utah,0.007682017234367007
+Vermont,-0.08610592739696143
+Virginia,0.006665160264156912
+Wisconsin,-0.04089170121944532
+rep_incumbentxlog_med_income,5.9420744895499514e-05
+rep_incumbentxminority_percentage,0.12601136998442478
+rep_incumbentxAlaska,6.54309014044195e-05
+rep_incumbentxArkansas,-0.03726041165189807
+rep_incumbentxCalifornia,0.028782779662609805
+rep_incumbentxFlorida,-0.012281687613655
+rep_incumbentxGeorgia,-0.028496937430600038
+rep_incumbentxIndiana,-0.02228303693692844
+rep_incumbentxIowa,-0.014805421084259265
+rep_incumbentxKansas,-0.060733168098210194
+rep_incumbentxLouisiana,0.004073526245448329
+rep_incumbentxMaine,-0.008066833760661833
+rep_incumbentxMichigan,-0.0012497842870088404
+rep_incumbentxMinnesota,-6.701445830936823e-05
+rep_incumbentxMontana,-0.009306919775489836
+rep_incumbentxNevada,0.005577998465734713
+rep_incumbentxNew Hampshire,-0.07533424285904865
+rep_incumbentxNew Jersey,0.00804146597050806
+rep_incumbentxNew Mexico,0.0011556405235380034
+rep_incumbentxNew York,-0.012802614028545154
+rep_incumbentxOklahoma,0.004687196973859366
+rep_incumbentxOregon,0.09539456515719172
+rep_incumbentxSouth Carolina,-0.055257839296903394
+rep_incumbentxTexas,0.08935967232035168
+rep_incumbentxVirginia,-0.018564911371995025
+rep_incumbentxWashington,0.014450259704528986
+rep_incumbentxWest Virginia,0.0019352069907927734
+rep_incumbentxWisconsin,0.03576801231973109
+dem_incumbentxminority_percentage,0.04341083594907745
+dem_incumbentxpercent_bachelor_or_above,-0.010479108416757248
+dem_incumbentxAlabama,0.03220815188320534
+dem_incumbentxArkansas,-0.04103884324550089
+dem_incumbentxCalifornia,-0.001983754938000211
+dem_incumbentxColorado,-0.018627729011427254
+dem_incumbentxConnecticut,-0.0010361534791885182
+dem_incumbentxGeorgia,-0.04728046249028386
+dem_incumbentxHawaii,-0.0006786074806872921
+dem_incumbentxIdaho,0.006193033480182993
+dem_incumbentxIndiana,-0.00785142603114092
+dem_incumbentxLouisiana,-0.011054764146044643
+dem_incumbentxMaine,-0.0024999836039866314
+dem_incumbentxMaryland,0.02130882844355334
+dem_incumbentxMichigan,-0.010178536516264049
+dem_incumbentxMississippi,0.010741187871812123
+dem_incumbentxMissouri,-0.005388462190630774
+dem_incumbentxNebraska,0.05408463696871657
+dem_incumbentxNevada,0.02750231195336329
+dem_incumbentxNew Hampshire,0.022674756553773726
+dem_incumbentxNew Mexico,0.0237366399624031
+dem_incumbentxNew York,0.00446563013863116
+dem_incumbentxNorth Carolina,0.011692576605234638
+dem_incumbentxNorth Dakota,0.0306306949219296
+dem_incumbentxOhio,-0.04457745018361779
+dem_incumbentxOklahoma,-0.08119331061389227
+dem_incumbentxOregon,-1.4276116818775541e-05
+dem_incumbentxRhode Island,-0.0018331129704220624
+dem_incumbentxSouth Carolina,-0.005308661041338802
+dem_incumbentxSouth Dakota,0.01887683232582795
+dem_incumbentxTennessee,-0.04557974391497696
+dem_incumbentxTexas,0.004489814382625051
+dem_incumbentxUtah,-0.05721043773766009
+dem_incumbentxVermont,-0.04694448474111243
+dem_incumbentxVirginia,0.0038065094606739647
+dem_incumbentxWest Virginia,0.011804397167767282
+dem_incumbentxWisconsin,-0.00017086510352674517
+log_med_incomexdem_incumbent,-0.0005215968254223653
+log_med_incomexlog_med_income,0.004708024269154266
+log_med_incomexminority_percentage,-3.2828234009343794e-07
+log_med_incomexAlabama,0.0008533873850512206
+log_med_incomexArkansas,0.0004912454464234221
+log_med_incomexDelaware,-5.1185423678619e-06
+log_med_incomexIllinois,-1.8871543256764968e-05
+log_med_incomexIowa,-0.001469166478993175
+log_med_incomexLouisiana,0.0097725099148044
+log_med_incomexNew Hampshire,-0.0001647278053596187
+log_med_incomexNorth Carolina,0.00297363997117809
+log_med_incomexOklahoma,0.0024808690044760785
+log_med_incomexSouth Carolina,2.762337011221563e-05
+log_med_incomexTennessee,0.00038257921269820266
+log_med_incomexTexas,-0.00046537583338536145
+log_med_incomexVermont,-0.004406451678449358
+log_med_incomexVirginia,0.0025845821108452286
+minority_percentagexrep_incumbent,0.025412776478530564
+minority_percentagexdem_incumbent,0.003148355436868882
+minority_percentagexlog_med_income,-1.6857110031681504e-05
+minority_percentagexpercent_bachelor_or_above,-0.010597776651778353
+minority_percentagexArizona,-0.011757060929004965
+minority_percentagexCalifornia,0.03743594959653657
+minority_percentagexColorado,-0.056262732612578546
+minority_percentagexConnecticut,0.07221296280638538
+minority_percentagexFlorida,-0.0388461914588814
+minority_percentagexGeorgia,-0.021648125550518104
+minority_percentagexIllinois,-0.046618272340780656
+minority_percentagexIowa,-0.25694886956715574
+minority_percentagexKentucky,-0.147899680154679
+minority_percentagexLouisiana,-0.2707605870256184
+minority_percentagexMaine,-0.7668405814830722
+minority_percentagexMaryland,-0.03795713436013018
+minority_percentagexMinnesota,0.025339658459888472
+minority_percentagexMississippi,0.01117814892340325
+minority_percentagexMissouri,-0.04123747956625931
+minority_percentagexNebraska,-0.49877098988163093
+minority_percentagexNew Hampshire,-0.10935203928304021
+minority_percentagexNew Jersey,-0.08591355099856388
+minority_percentagexNew York,-0.05334315483012184
+minority_percentagexOhio,0.05400412247088919
+minority_percentagexOklahoma,0.11955622666251117
+minority_percentagexOregon,-0.39364934179224553
+minority_percentagexPennsylvania,-0.0481789293377346
+minority_percentagexSouth Carolina,-0.03819499509990979
+minority_percentagexTexas,0.002336916439197242
+minority_percentagexWashington,0.040775628422435164
+minority_percentagexWisconsin,0.02379149996992355
+percent_bachelor_or_abovexdem_incumbent,-0.0674906432898487
+percent_bachelor_or_abovexminority_percentage,-0.01921316298810425
+percent_bachelor_or_abovexpercent_bachelor_or_above,-0.3790245058829493
+percent_bachelor_or_abovexArizona,0.11060686130984501
+percent_bachelor_or_abovexArkansas,0.08158996553589178
+percent_bachelor_or_abovexCalifornia,-0.0423259195635938
+percent_bachelor_or_abovexGeorgia,-0.029607612495265476
+percent_bachelor_or_abovexHawaii,0.14525154378532834
+percent_bachelor_or_abovexIdaho,0.021307399506617454
+percent_bachelor_or_abovexIndiana,0.11755482261301049
+percent_bachelor_or_abovexKentucky,-0.13181755318601662
+percent_bachelor_or_abovexMaine,-0.12858242135158907
+percent_bachelor_or_abovexMaryland,-0.001361004087705346
+percent_bachelor_or_abovexMassachusetts,-0.1793513279785254
+percent_bachelor_or_abovexMississippi,0.46328781581503203
+percent_bachelor_or_abovexNew Hampshire,-0.00013629810021700985
+percent_bachelor_or_abovexNew York,-0.027892184828328268
+percent_bachelor_or_abovexOhio,0.004022262433926714
+percent_bachelor_or_abovexPennsylvania,-0.05472187241831853
+percent_bachelor_or_abovexRhode Island,-0.17656667193180178
+percent_bachelor_or_abovexTennessee,0.10410988076343237
+percent_bachelor_or_abovexUtah,0.14165106910294445
+percent_bachelor_or_abovexWashington,-0.13455334761926058
+percent_bachelor_or_abovexWest Virginia,-0.20758810328491015
+percent_bachelor_or_abovexWisconsin,-0.06578473225913672
+Alabamaxdem_incumbent,0.005024701005956164
+Alabamaxlog_med_income,0.0003205549648333588
+Alaskaxrep_incumbent,0.005486063478407679
+Arizonaxminority_percentage,-0.0008287732413236364
+Arizonaxpercent_bachelor_or_above,0.029234696643885776
+Arkansasxrep_incumbent,-0.0034050236110027238
+Arkansasxdem_incumbent,-0.0031647355620768045
+Arkansasxlog_med_income,0.0002469922071890037
+Arkansasxpercent_bachelor_or_above,0.025425562222014694
+Californiaxrep_incumbent,0.0036874149734453846
+Californiaxdem_incumbent,-0.0005461421357603491
+Californiaxminority_percentage,0.002171133836046541
+Californiaxpercent_bachelor_or_above,-0.004497770380374151
+Coloradoxdem_incumbent,-0.005324988587882984
+Coloradoxminority_percentage,-0.02253488754187732
+Connecticutxdem_incumbent,-0.0065924879587599145
+Connecticutxminority_percentage,0.009216228614271883
+Floridaxminority_percentage,-0.0003500244542773949
+Georgiaxrep_incumbent,-0.0003304215960491017
+Georgiaxdem_incumbent,-0.001310373338222475
+Georgiaxminority_percentage,-0.004500499027699498
+Hawaiixrep_incumbent,0.0004266299695287773
+Hawaiixdem_incumbent,-0.0004963307397305585
+Hawaiixpercent_bachelor_or_above,0.08093780141867984
+Illinoisxminority_percentage,-0.019219240200256435
+Indianaxrep_incumbent,-0.0011279306591407345
+Indianaxpercent_bachelor_or_above,0.013206810396927171
+Iowaxrep_incumbent,-0.004264444593761677
+Iowaxlog_med_income,-0.0003297976229258817
+Iowaxminority_percentage,-0.050254054569189716
+Kansasxrep_incumbent,-0.0030491948365515085
+Kentuckyxpercent_bachelor_or_above,-0.006928797830562935
+Louisianaxrep_incumbent,0.00490168794919174
+Louisianaxdem_incumbent,-0.004679427465253999
+Louisianaxlog_med_income,0.006453915873362632
+Louisianaxminority_percentage,-0.027575589511729275
+Mainexdem_incumbent,-7.289407122062423e-05
+Mainexminority_percentage,-0.4175372239180278
+Mainexpercent_bachelor_or_above,-0.022459131775706607
+Marylandxdem_incumbent,0.003029058570145995
+Marylandxminority_percentage,-0.00047281138841187234
+Marylandxpercent_bachelor_or_above,-0.00047329938567983306
+Massachusettsxpercent_bachelor_or_above,-0.0752390103010919
+Michiganxrep_incumbent,-0.0005464285042957553
+Michiganxdem_incumbent,-7.379777001268023e-05
+Michiganxminority_percentage,-0.024049838791620044
+Minnesotaxrep_incumbent,-0.0021789288157648156
+Minnesotaxminority_percentage,0.0005216659612533937
+Mississippixdem_incumbent,0.002000844448879409
+Mississippixminority_percentage,0.009770371355121377
+Mississippixpercent_bachelor_or_above,0.17304410612817792
+Missourixdem_incumbent,-0.003026883663302642
+Missourixminority_percentage,-0.0007781470431154116
+Nebraskaxdem_incumbent,0.007581748540910026
+Nebraskaxlog_med_income,0.0010310210758130963
+Nebraskaxminority_percentage,-0.09993697165308596
+Nevadaxrep_incumbent,0.0007339341804270169
+Nevadaxdem_incumbent,0.004956827985642236
+New Hampshirexrep_incumbent,-0.05117410059040403
+New Hampshirexdem_incumbent,0.0005311836632376099
+New Hampshirexlog_med_income,-0.00011000316919296897
+New Hampshirexminority_percentage,-0.009227073347207349
+New Jerseyxminority_percentage,-0.030887583350065154
+New Mexicoxrep_incumbent,0.00019100343971401943
+New Mexicoxdem_incumbent,0.004698828504397173
+New Yorkxrep_incumbent,-0.005419596597614392
+New Yorkxdem_incumbent,0.00017983349391028917
+New Yorkxminority_percentage,-0.035091768925111747
+New Yorkxpercent_bachelor_or_above,-0.0009473820084534452
+North Carolinaxdem_incumbent,0.006527099769712952
+North Carolinaxlog_med_income,0.0007554180276136067
+North Dakotaxdem_incumbent,0.001269015621904635
+Ohioxdem_incumbent,-0.013135967482666381
+Ohioxpercent_bachelor_or_above,0.0010229122694027577
+Oklahomaxrep_incumbent,0.008191660998751193
+Oklahomaxdem_incumbent,-0.011080937377071956
+Oklahomaxlog_med_income,0.004084054871478649
+Oklahomaxminority_percentage,0.02640630699512454
+Oregonxrep_incumbent,0.02072742600843967
+Oregonxdem_incumbent,-0.005857635397074584
+Oregonxminority_percentage,-0.0587187144611969
+Pennsylvaniaxminority_percentage,-0.048609955525829654
+Pennsylvaniaxpercent_bachelor_or_above,-0.014695149423819363
+Rhode Islandxdem_incumbent,-0.00016969848217784664
+Rhode Islandxpercent_bachelor_or_above,-0.042702232278458575
+South Carolinaxrep_incumbent,-0.0025013388431969637
+South Carolinaxlog_med_income,0.002123276550500053
+South Carolinaxminority_percentage,-0.003986474742528357
+Tennesseexdem_incumbent,-0.005633730690983354
+Tennesseexlog_med_income,0.0015681124455888228
+Tennesseexpercent_bachelor_or_above,0.011709604366741006
+Texasxrep_incumbent,0.03440865707515667
+Texasxdem_incumbent,0.000335111392847277
+Texasxlog_med_income,-0.00014093272779473772
+Texasxminority_percentage,0.001312472887511939
+Utahxdem_incumbent,-0.007413553539329367
+Utahxpercent_bachelor_or_above,0.042841515391058946
+Vermontxdem_incumbent,-8.37042288682253e-06
+Vermontxlog_med_income,-0.0013729949185447739
+Virginiaxrep_incumbent,-0.0015739581764571983
+Virginiaxdem_incumbent,0.012083847280236744
+Virginiaxlog_med_income,0.0006000286810581442
+Washingtonxrep_incumbent,0.0019596236853752515
+Washingtonxminority_percentage,0.005358784144913889
+Washingtonxpercent_bachelor_or_above,-0.034731977932027445
+West Virginiaxrep_incumbent,0.04312604618484365
+West Virginiaxdem_incumbent,0.0005338968003834527
+West Virginiaxpercent_bachelor_or_above,-0.013805775928006029
+Wisconsinxrep_incumbent,0.0009354585283927772
+Wisconsinxdem_incumbent,-0.003747379158805245
+Wisconsinxminority_percentage,0.0015371500883804387
+Wisconsinxpercent_bachelor_or_above,-0.030141529624546342
