@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+\usepackage{macros}
+\usepackage{longtable}
+\newgeometry{margin=1in}
+\singlespacing
+\pagestyle{fancy}
+\lhead{\textsc{Stat 195 Early Forecast}}
+\rhead{\textsc{Jiafeng Chen and Joon Yang}}
+% \singlespacing
+\begin{document}
+\section*{Brief Methodology}
+Let \[Y_i = \frac{\text{Republican}\% }{\text{Republican}\% + \text{Democrat}\%}\] be the proportion of Republican vote share between the major parties in district $i$, which is our outcome measure.\footnote{Assuming districts have no time dimension: i.e. Alabama-01 is represented by different $i,j$'s across two different years. We also assume for simplicity that third parties never win elections, which seems accurate in the case for 2018.} Let $x_i$ be a list of features for the district. The features we use are incumbency, gender, voting pattern in the previous presidential election, percentage of minorities, presidential approval rating and candidates' party alignment with the incumbent president, log of median income, and percent in district with Bachelor's degree or above, and one-hot encoding of states. We also include all second-order interactions of these features.
+
+We predict (contested) elections via a two-stage process. In the first stage, we form a prior via the training data. In the second stage, we update this prior with live polling data aggregated by FiveThirtyEight. Assume the (misspecified) linear probability model
+$Y_i \sim \Norm(\mu_{i0}, \sigma_0^2),$ where $\mu_{i0} = x_i^T \beta_0$. The model is misspecified since $Y_i \in [0,1]$ but Normal is supported on $\R$. Let \begin{align*}
+\hat \beta_0 = \argmin_\beta \, \sum_{i=1}^{N} (y_i - x_i^T \beta)^2 + \lambda\pr{\alpha \norm{\beta}_1 + (1-\alpha) \norm{\beta}_2^2}
+\end{align*}
+be fitted with an elastic net regularizer over the training data, where $\lambda$ is chosen via $K$-fold cross validation and $\alpha$ is some fixed constant, say $0.9$. Let $\hat \sigma_{0i}^2 = \sum (y_j - x_j^T \hat\beta_0)^2$ be fitted as the variance of the residuals, where the sum could be over districts in the same state.\footnote{One could also estimate variance over a holdout set, which might improve bias.} Let $\hat \mu_{i0} = x_i^T \hat \beta_0$.
+
+For a district that corresponds to an upcoming election, we form a prior 
+$Y_i\sim \Norm(\hat \mu_{i0}, \hat \sigma_0^2),$ or in vector form $
+Y \sim \Norm( \mu_0,  \Sigma_0)$, suppressing the hat notation. Assume a poll result is $Z \mid Y \sim \Norm(a^T Y, \sigma^2_p)$ where $a$ is $n^{-1}\bm 1$ for a nationwide poll and the $i$th standard basis for a poll conducted in the $i$th district. For each poll, we estimate $\sigma^2_p$. For the congressional generic ballot,\footnote{\url{https://projects.fivethirtyeight.com/congress-generic-ballot-polls/}} we calculate a variance implied by FiveThirtyEight's 90\% confidence interval. For a district-wide poll, we estimate $\sigma^2_p$ by using the empirical variance of polls from the same district, plus a variance implied by the Binomial model ($\frac{1}{4n}$, where $n$ is sample size in the poll). We use the latest generic ballot polling average and the latest three polls for each district. Bayesian updating yields a posterior $Y \mid Z \sim \Norm(\mu, \Sigma)$ for some $\mu, \Sigma$ that we calculate. The projected winners and probabilities in \Cref{sec:district_res} are calculated by computing the marginal probability $\P(Y_i > 0.5) = \P(\text{Republican wins $i$})$ for each $i$. The aggregate probabilities in \Cref{sec:agg_res} are calculated by drawing $10^5$ draws from $\Norm(\mu,\Sigma)$ and calculating $10^{-5}\sum_{j=1}^{10^5} \bm 1\pr{\sum_{i=1}^{n} \bm 1(Y_i^{(j)} > .5) > 217.5}$, which is the Monte Carlo probability of Republicans retaining control of the house. 
+
+\newpage
+% Note that in such a formulation, we ignore the sampling variance of $\hat \mu_{i0}$ and $\hat \sigma_0^2$,\footnote{The elastic net regularizer in the fitting method for $\beta$ makes the sampling variance of $\hat\beta_0$ difficult to compute.} instead forming a plug-in estimate, appealing to the law of large numbers.\footnote{From this point on, we drop the hat on $\mu_{i0}, \sigma_0$.} To obtain a more accurate and timely prediction for the district, we update the prior in two steps.  
+
+% First, to take into account the ``blue wave,'' we update our prior via the generic congressional ballot.\footnote{\url{https://projects.fivethirtyeight.com/congress-generic-ballot-polls/}} Formally, we model generic congressional poll as $Z_{G} \mid Y_i \sim \Norm(Y_i, \sigma_G^2),$ where $\sigma_G^2$ is estimated from the 90\% confidence interval provided by FiveThirtyEight. We have the following data generating process: \begin{align*}
+% Y &\sim \Norm(\hat \mu_0, \hat \Sigma_0)\\
+% Z_G \mid Y &\sim \Norm\pr{n^{-1}1^T Y, \sigma_G^2}
+% \end{align*}
+
+% We update our prior to form an intermediate posterior: \[
+% Y \mid Z_G \sim \Norm(\mu_1, \Sigma_1).
+% \]
+% From now on, we drop the conditioning on $Z_G$.
+
+% Second, for some districts, we observe a number of district-specific polls $Z_{i1},\ldots,Z_{iJ_i}$.\footnote{In practice, we take the $J$ most recent polls (if available) in district $i$, where $J = 10$.} The variance across polls is much higher than implied by a simple Beta-Binomial model, where one assumes that each poll is an independent $\Bin(n_j,p)$ where $p$ is sampled from a Beta (again, approximately Normal) prior. As such, we hesitate from using a simple Beta-Binomial updating procedure and opt for the following model: We assume that poll $j$ has an independent bias $\epsilon_j \sim \Norm(0, \sigma^2_p)$, where $\sigma_p$ is estimated as the empirical variance of poll outcomes in a district: \begin{align*}
+% Y &\sim \Norm(\mu_1, \Sigma_1) \quad \epsilon_j \sim \Norm(0, \sigma_p^2) \\
+% Z_{ij}\mid Y_i, \epsilon_j &\sim n^{-1} \cdot \Bin(n, e_i^T Y + \epsilon_j),
+% \end{align*}
+% where $e_i$ is the $i$th standard basis vector. It's somewhat difficult to compute the posterior $Y \mid Z_{i1}, \ldots, Z_{iJ}$. Instead we may assume the misspecified model, justified as $n^{-1}\Bin(n, p)$ is approximately Normal when $n$ is large. \begin{align*}
+% Y &\sim \Norm(\mu_{1}, \Sigma_{1}) \\
+% Z_{ij} \mid Y &\sim \Norm\pr{e_i^TY, \frac{1}{4n_j} + \sigma_p^2},
+% \end{align*}
+% so as to (a) take advantage of Normal-Normal conjugacy and (b) ignore the dependence of $\var(Z_{ij})$ on $Y_i$. We now have the posterior by, say, sequentially Bayesian updating: \[
+% Y \mid (Z_{i1},\ldots,Z_{iJ_i})_{i=1}^n \sim \Norm\pr{
+%     \mu_{2}, \Sigma_{2}
+% }.
+% \]
+% We predict $\hat Y_i = \mu_{2i}$, and, naturally \[
+% \hat{\text{Winner}}_i = \begin{cases}
+%     \text{Republican} & \mu_{2i} > .5 \\
+%     \text{Democrat} & \mu_{2i} < .5
+% \end{cases}
+% \]
+
+
+
+\appendix
+\section{Projected results by district}
+\label{sec:district_res}
+\input{projected_results.tex}
+
+\section{Projected total seats}
+\label{sec:agg_res}
+
+The probability of Republicans retaining the majority is \textbf{0.273} and the probability of Democrats retaining the majority is \textbf{0.727}, which are slightly more in favor of Republicans than reported by FiveThirtyEight and is less in favor of Republicans than the latest betting odds on PredictIt.\footnote{\url{https://www.predictit.org/markets/detail/2704/Which-party-will-control-the-House-after-2018-midterms}}
+% \begin{figure}[tb]
+%     \centering
+%     \includegraphics{rep_seats.pdf}
+%     \caption{Projected Republican seat holdings}
+%     \label{fig:seats}
+% \end{figure}
+% \section{Fitting Method}
+
+% \section{Results}
+
+% \section{Uncertainty and robustness}
+
+% \section{Conclusion}
+\end{document}
