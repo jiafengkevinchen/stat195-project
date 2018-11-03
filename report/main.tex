@@ -1,19 +1,122 @@
-\documentclass[10pt]{article}
+\documentclass[11pt]{article}
 \usepackage{macros}
+\usepackage{bbm}
 \usepackage{longtable}
 
 % \singlespacing
-% \newgeometry{margin=1in}
+\newgeometry{left=1in, right=1in, bottom=1.3in}
 \title{Prediction of the 2018 Midterm Elections}
 \author{Jiafeng Chen\thanks{Harvard College, \url{jiafengchen@college.harvard.edu}} \and Joon Yang\thanks{Harvard College, \url{joonhyukyang@college.harvard.edu}}}
 \begin{document}
 \maketitle
-% \section{Introduction}
+\section{Introduction}
 
-% \section{Statistical model and prediction function}
-Let \[Y_i = \frac{\text{Republican}\% }{\text{Republican}\% + \text{Democrat}\%}\] be the proportion of Republican vote share between the major parties in district $i$.\footnote{Assuming districts have no time dimension: i.e. Alabama-01 is represented by different $i,j$'s across two different years. We also assume for simplicity that third parties never win elections, which seems accurate in the case for 2018.} Let $x_i$ be a list of features for the district. Assume the (misspecified) linear probability model
-$Y_i \sim \Norm(\mu_{i0}, \sigma_0^2),$ where $\mu_{i0} = x_i^T \beta_0$. The model is misspecified since $Y_i \in [0,1]$ but Normal is supported on $\R$. We justify the misspecification by noting that $\Beta(a,b) \dto \Norm(\mu,\sigma^2)$ where $a, b \to \infty$ in such a way that expectation and variance are fixed at $\mu,\sigma^2$.\footnote{Alternatively, we could fit some generalized linear model with link function implied by a Beta distribution, but Normal linear model provides a lot of computational ease.}
-Let \begin{align*}
+\section{Data}
+
+\section{Statistical model and prediction function}
+\subsection{Overview}
+Let \[Y_i = \frac{\text{Republican}\% }{\text{Republican}\% + \text{Democrat}\%}\] be the proportion of Republican vote share between the major parties in district $i$, where $i$ is indexed by the triple $(\text{state}, \text{district number}, \text{year of the race})$.
+%\footnote{Assuming districts have no time dimension: i.e. Alabama-01 is
+%represented by different $i,j$'s across two different years. We also assume for
+%simplicity that third parties never win elections, which seems accurate in the
+%case for 2018.}
+Let $x_i\in \R^p$ be a list of features (after suitable basis transformations)
+for the district. 
+
+A machine learning method can generate a prediction function $\hat f_{\cal T}$,
+where $\mathcal T$ is $Y_i, x_i$ over the training set. However, the
+distribution of the test set, $Y_i \mid x_i$ for those districts $i$ in 2018 may
+be
+substantially different from that of $Y_j \mid x_j$ for $j$ in the training
+set. Thus $\hat f_{\mathcal T}$ may incur large generalization errors, since we
+are attempting to generalize the prediction function to a potentially 
+\emph{different}
+distribution
+of the data.\footnote{Note that this problem is mitigated by increased data
+availability---for instance, if we had obtained historical polling data,
+which is difficult to obtain---but we incur a different problem ($p > N$) of
+high-dimensional
+inference in that case.} Fortunately, we have an additional piece of
+information, namely polling data, that we may scrape from polling aggregators
+like
+FiveThirtyEight.\footnote{\url{https://projects.fivethirtyeight.com/polls/}} The
+lack of historical polling data means that we cannot simply include them in the
+features $x_i$. Therefore, to incorporate polling data, we perform a two-step
+Bayesian procedure. In the first step, we estimate a prior $Y \sim p_{\theta_0,
+X}$, where parameters $\theta_0$ is estimated from the training data. In the
+second step, we assume that polling data, $Z$, comes from some conditional
+distribution $Z \mid Y \sim p_{\eta}(z\mid y)$ for some known or
+estimated parameters
+$\eta$. We form our final prediction by computing the posterior distribution $Y
+\mid Z$. We now discuss how we parameterize $p_{\theta, X}$ and $p_\eta$.
+
+\subsection{Parameterizations}
+
+For the prior, $p_{\theta, X}(y)$, we assume a linear probability model,
+\begin{equation}
+    Y \sim \Norm(\underbrace{X\beta_0}_{\mu_0}, \Sigma_0)
+    \label{eq:first_stage}
+\end{equation}
+\Cref{eq:first_stage} is misspecified since $Y_i \in [0,1]$ but the Normal
+distribution is supported on $\R$. A properly specified generalized linear model
+for $Y_i$ is a Beta linear model \citep[See][for an overview]{grun2011extended}.
+We have a few reasons for preferring \Cref{eq:first_stage} instead. First, we
+note that for large values of $a,b$ in $\Beta(a,b)$, the distribution
+$\Beta(a,b)$ is approximately Normal. Second, we note that \[Y_i = M^{-1}
+\sum_{j=1}^M \frac{\mathbbm{1} (\text{vote}_j \in \{D,R\})}{\sum_{j'=1}^M \mathbbm{1}
+(\text{vote}_{j'} \in \{D,R\})} \mathbbm{1}(\text{vote}_j = R),\] for a district with
+$M$ voters, which should have an approximately Normal distribution, by the
+Central Limit Theorem. Third, computational methods for the Beta regression
+model---especially those that deal effectively with high-dimensional
+covariates---is much less readily available than those for the Normal linear
+model. We note additionally in \TODO {Figure X} that the fitted residuals are
+approximately Normally distributed, and we note that Normal distribution eases
+computation for Bayesian updating in our next step. For \Cref{eq:first_stage},
+we need to estimate $\theta_0 = (\beta_0, \Sigma_0)$. 
+
+For $p_{\eta}$, we assume that conditional on $Y$, the polls $Z_j$ are
+independently distributed. We can treat an observation of a poll $z_j$ as
+generated by
+asking $n_j$
+individuals a question (``Are you voting for the Republican candidate''), with
+$z_j \in [0,1]$ respondents responding
+affirmatively.\footnote{Again, this model assumes that the only parties running
+are Republicans and Democrats, and that there are no undecided individuals.
+When working with data, we normalize the Republican percentage by the sum of
+the Republican and Democratic percentages.}
+Assume that 
+\begin{equation}
+    Z_j \mid Y \sim \Norm(a_j^T Y, \sigma_{Z_j}^2), \text{ for $a_j, \sigma_
+    {Z_j}^2$ that do not depend on $Y$}.
+    \label{eq:polls}
+\end{equation}
+We use the Normal distribution in \Cref{eq:polls} because (1) The Normal
+distribution works well computationally with our Normal prior\footnote{This is
+assuming that the Normal likelihood has variance unaffected by the
+prior---which requires a further justification that we discuss in 
+\Cref{sec:estimate}.} and (2) polling proportions are empirical averages, which
+tend to be Normally distributed by the Central Limit Theorem.
+
+
+
+We use two types of polls in our implementation. First is a national
+\emph{generic ballot} poll, which simply asks the respondent which party she
+would vote for. For such $Z_j$, we assume $a_j = n^{-1} \bm 1$, treating the
+mean of such a poll as aggregated over all contested districts. Second is a
+district-wide poll, and we use $a_j = e_i$ for a poll in district $i$, where
+$e_i$ is the $i$-th standard basis vector. For \Cref{eq:polls}, we need to
+estimate $\sigma_{Z_j}^2$ for both types of polls.
+
+\subsection{Estimation}
+\label{sec:estimate}
+
+
+
+We justify the misspecification by noting that $\Beta(a,b) \dto
+\Norm(\mu,\sigma^2)$ where $a, b \to \infty$ in such a way that expectation and
+variance are fixed at $\mu,\sigma^2$.\footnote{Alternatively, we could fit some
+generalized linear model with link function implied by a Beta distribution, but
+Normal linear model provides a lot of computational ease.} Let \begin{align*}
 \hat \beta_0 = \argmin_\beta \, \sum_{i=1}^{N} (y_i - x_i^T \beta)^2 + \lambda\pr{\alpha \norm{\beta}_1 + (1-\alpha) \norm{\beta}_2}
 \end{align*}
 be fitted with an elastic net regularizer over the training data, where $\lambda$ is chosen via $K$-fold cross validation and $\alpha$ is some fixed constant, say $0.9$. Let $\hat \sigma_{0i}^2 = \sum (y_j - x_j^T \hat\beta_0)^2$ be fitted as the variance of the residuals, where the sum could be over districts in the same state, over all districts, or some kernel-weighted estimator. For simplicity, we stratify variance estimate by state.\footnote{One could also estimate variance over a holdout set, which might improve bias.} Let $\hat \mu_{i0} = x_i^T \hat \beta_0$.
@@ -54,4 +157,11 @@ We predict $\hat Y_i = \mu_{2i}$, and, naturally \[
 \end{cases}
 \]
 
+\section{Results}
+
+\section{Considerations}
+
+
+\bibliographystyle{jpe}
+\bibliography{main.bib}
 \end{document}
