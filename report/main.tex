@@ -81,21 +81,21 @@ For the prior, $p_{\theta, X}(y)$, we assume a linear probability model,
     Y \sim \Norm(\underbrace{X\beta_0}_{\mu_0}, \Sigma_0)
     \label{eq:first_stage}
 \end{equation}
-\Cref{eq:first_stage} is misspecified since $Y_i \in [0,1]$ but the Normal
+\eqref{eq:first_stage} is misspecified since $Y_i \in [0,1]$ but the Normal
 distribution is supported on $\R$. A properly specified generalized linear model
 for $Y_i$ is a Beta linear model \citep[See][for an overview]{grun2011extended}.
-We have a few reasons for preferring \Cref{eq:first_stage} instead. First, we
+We have a few reasons for preferring \eqref{eq:first_stage} instead. First, we
 note that for large values of $a,b$ in $\Beta(a,b)$, the distribution
-$\Beta(a,b)$ is approximately Normal. Second, we note that \[Y_i = M^{-1}
+$\Beta(a,b)$ is approximately Normal. Second, we note that \[Y_i =
 \sum_{j=1}^M \frac{\mathbbm{1} (\text{vote}_j \in \{D,R\})}{\sum_{j'=1}^M \mathbbm{1}
 (\text{vote}_{j'} \in \{D,R\})} \mathbbm{1}(\text{vote}_j = R),\] for a district with
 $M$ voters, which should have an approximately Normal distribution, by the
 Central Limit Theorem. Third, computational methods for the Beta regression
 model---especially those that deal effectively with high-dimensional
 covariates---is much less readily available than those for the Normal linear
-model. We note additionally in \TODO {Figure X} that the fitted residuals are
-approximately Normally distributed, and we note that Normal distribution eases
-computation for Bayesian updating in our next step. For \Cref{eq:first_stage},
+model. We note additionally in \Cref{fig:qq} that the fitted residuals are
+approximately Normally distributed and in \Cref{fig:diag} that they are homoskedastic, and we note that Normal distribution eases
+computation for Bayesian updating in our next step. For \eqref{eq:first_stage},
 we need to estimate $\theta_0 = (\beta_0, \Sigma_0)$. 
 
 For $p_{\eta}$, we assume that conditional on $Y$, the polls $Z_j$ are
@@ -114,7 +114,7 @@ Assume that
     {Z_j}^2$ that do not depend on $Y$}.
     \label{eq:polls}
 \end{equation}
-We use the Normal distribution in \Cref{eq:polls} because (1) The Normal
+We use the Normal distribution in \eqref{eq:polls} because (1) The Normal
 distribution works well computationally with our Normal prior\footnote{This is
 assuming that the Normal likelihood has variance unaffected by the
 prior---which requires a further justification that we discuss in 
@@ -128,7 +128,7 @@ We use two types of polls in our implementation. First is a national
 would vote for. For such $Z_j$, we assume $a_j = n^{-1} \bm 1$, treating the
 mean of such a poll as aggregated over all contested districts. Second is a
 district-wide poll, and we use $a_j = e_i$ for a poll in district $i$, where
-$e_i$ is the $i$-th standard basis vector. For \Cref{eq:polls}, we need to
+$e_i$ is the $i$-th standard basis vector. For \eqref{eq:polls}, we need to
 estimate $\sigma_{Z_j}^2$ for both types of polls.
 
 We now discuss our approaches to estimation and justify discretionary choices
@@ -183,19 +183,29 @@ This approach is no longer valid when district boundaries change over time. None
 \]
 which ensures that the resulting $\Sigma_0$ is positive definite. 
 
-Here we discuss a few caveats. In principle, the variance we estimate should also take into account the uncertainty in $\hat \beta_0$. However, there is little consensus in uncertainty quantification for methods like elastic net and LASSO \citep{kyung2010penalized}, which remains an active research area. The fitting (along with cross-validation) is too expensive to bootstrap either, and we ignore the uncertainty in $\hat \beta_0$ for simplicity. Moreover, \eqref{eq:var} is likely an underestimate of variance---in linear regression, for example, we inflate the naive variance estimate by $n/(n-p)$, where $p$ is the degrees of freedom in a linear regression. The analogous inflation in our setting is with the degree of freedom in the elastic net \citep{zou2007degrees}---the estimate of the degree of freedom is about 100 for a dataset with $N=1500$; thus the inflation factor is about $\frac{1500}{1500-100} \approx 1.07$ for variance, which is sufficiently small to ignore. An alternative would be to estimate variance on a hold-out set, which is unbiased if the data is i.i.d.; we do not hold out for the sake of increasing training data.  
+Now we discuss a few caveats regarding variance estimation. In principle, the variance we estimate should also take into account the uncertainty in $\hat \beta_0$. However, there is little consensus in uncertainty quantification for methods like elastic net and LASSO \citep{kyung2010penalized}, which remains an active research area. The fitting (along with cross-validation) is too expensive to bootstrap either, and we ignore the uncertainty in $\hat \beta_0$ for simplicity. Moreover, \eqref{eq:var} is likely an underestimate of variance---in linear regression, for example, we inflate the naive variance estimate by $n/(n-p)$, where $p$ is the degrees of freedom in a linear regression. The analogous inflation in our setting is with the degree of freedom in the elastic net \citep{zou2007degrees}---the estimate of the degree of freedom is about 100 for a dataset with $N=1500$; thus the inflation factor is about $\frac{1500}{1500-100} \approx 1.07$ for variance, which is sufficiently small to ignore. An alternative would be to estimate variance on a hold-out set, which is unbiased if the data is i.i.d.; we do not hold out for the sake of increasing training data.  
 
 As a notational matter, we now suppress the hat notation on $\beta_0, \Sigma_0.$ We use $\Sigma_0^d$ to distinguish the diagonal of $\Sigma_0$ from the full-estimate with \eqref{eq:covar_corr}. 
 \subsubsection{Estimation for polling variance}
 
 We now turn to estimation of variance in the likelihood of polls, $\sigma_{Z_j}^2$ in \Cref{eq:polls}. The main problem in variance estimation is to account for the large between-poll variance unpredicted by a simple model. Suppose poll outcomes are indepedently $n_j^{-1} \Bin(n_j, Y_i)$ conditional on $Y_i$, then the (conditional) standard deviation is as low as $1.58$ percentage points for a poll with $1000$ respondents. However, polls of this size display much more variation than predicted by a simple independent Binomial model. Therefore, we assume that there is some structural between-poll variance and attempt to estimate it from data.  
 
-For a generic ballot poll $Z_j$, we leverage the \href{https://projects.fivethirtyeight.com/congress-generic-ballot-polls/}{FiveThirtyEight polling average estimates} since FiveThirtyEight provides a 90\% confidence interval. We use the (most recent) variance that implies the range of $90\%$ confidence computed by FiveThirtyEight. The FiveThirtyEight estimates are via kernel-weighted local polynomial smoothing,\footnote{The link on footnote 2 in \href{https://fivethirtyeight.com/features/heres-a-new-less-volatile-version-of-our-generic-ballot-tracker/}{FiveThirtyEight's methodology} links to the Stata manual for kernel-weighted local polynomial smoothing.} whose confidence comes from (we conjecture) bootstrapping. We directly use FiveThirtyEight's estimates for convenience. 
+For both types of polls, there is a within poll variance generated by sampling, and a between-poll variance. The within poll variance is $n_j^{-1}\E[Z_j \mid Y](1-\E[Z_j\mid Y]) \le (4n_j)^{-1}$, which in general depends on $Y$. For computational simplicity, we use the upper bound $\frac{1}{4n_j}$ as a proxy for the within-poll part of variance, since it does not depend on $Y_i$ in order to take advantage of Bayesian conjugacy; the approximation is good for districts with $Y_i$ close to $1/2$, which is precisely those polls that we especially care about. Full, proper posterior condition can still be achieved if we use the more precise estimate, $Y_i(1-Y_i)/n_j$, via an MCMC sampler. 
 
-For a district-wide polls $Z_j^i, j = 1,\ldots,J_i$, the variance comes from two components. The first component comes from the sampling error of the poll itself, which is the Binomial variance $\frac{Y_i(1-Y_i)}{n_j} \le \frac{1}{4n_j}$. The second component comes from a between-poll variance, which we estimate by taking the empirical variance of poll results in a district.\footnote{Filling missing values with state-averages.} We use \[
-\sigma^2_{Z_j} = \frac{1}{4n_j} + \sigma^2_{i,p} \tag{Estimation for district poll variance}
+For a generic ballot poll $Z_j$, we leverage the \href{https://projects.fivethirtyeight.com/congress-generic-ballot-polls/}{FiveThirtyEight polling average estimates} since FiveThirtyEight provides a 90\% confidence interval. We use the (most recent) variance that implies the range of $90\%$ confidence computed by FiveThirtyEight. The FiveThirtyEight estimates are via kernel-weighted local polynomial smoothing,\footnote{The link on footnote 2 in \href{https://fivethirtyeight.com/features/heres-a-new-less-volatile-version-of-our-generic-ballot-tracker/}{FiveThirtyEight's methodology} links to the Stata manual for kernel-weighted local polynomial smoothing.} whose confidence comes from (we conjecture) bootstrapping. We directly use FiveThirtyEight's estimates, as the between-poll part of the variance for generic-ballot polls, for convenience. 
+
+For a district-wide polls $Z_j^i, j = 1,\ldots,J_i$, the variance comes from two components. The first component comes from the sampling error of the poll itself, which is the Binomial variance $\frac{Y_i(1-Y_i)}{n_j} \le \frac{1}{4n_j}$. The second component comes from a between-poll variance, which we estimate by taking the empirical variance of poll results in a district.\footnote{Filling missing values with state-averages.} 
+
+To summarize, we use \begin{align*}
+\sigma^2_{Z_j} &= \frac{1}{4n_j} + \sigma^2_{538} \tag{Estimation for generic ballot poll variance}\\
+\sigma^2_{Z_j} &= \frac{1}{4n_j} + \hat\sigma^2_{i,p} \tag{Estimation for district poll variance}
+\end{align*}
+where $ \sigma^2_{538}$ is the variance implied by FiveThirtyEight's 90\% confidence interval, and $\hat \sigma_{i,p}^2$ is the variance of polling results for district $i$ estimated by taking the empirical variance within district $i$.
+
+\subsection{Putting it all together: updating prior}
+From estimating $\theta_0$, for the competitive races in 2018, we obtain a prior estimate $Y \sim \Norm(\mu_0, \Sigma_0)$, where $\mu_0 = X\beta_0$. The polls form a vector $Z \mid Y \sim \Norm(\mu_Z, \Sigma_Z)$ for $\mu_Z, \Sigma_Z$ compatible with our assumptions. Therefore, our posterior is \[
+Y\mid Z \sim \Norm\pr{(\Sigma_0 + \Sigma_Z)^{-1} \pr{\Sigma_Z\mu_0 + \Sigma_0 \mu_Z}, \pr{\Sigma_Z^{-1} + \Sigma_0^{-1}}^{-1}}.
 \]
-For computational simplicity, we use the upper bound $\frac{1}{4n_j}$ as a proxy for the first part of variance, since it does not depend on $Y_i$ in order to take advantage of Bayesian conjugacy; the approximation is good for districts with $Y_i$ close to $1/2$, which is precisely those races that we especially care about. Full, proper posterior condition can still be achieved if we use the more precise $Y_i(1-Y_i)/n_j$ via an MCMC sampler. 
 
 % Let $\hat \sigma_{0i}^2 = \sum (y_j - x_j^T \hat\beta_0)^2$ be fitted as the variance of the residuals, where the sum could be over districts in the same state, over all districts, or some kernel-weighted estimator. For simplicity, we stratify variance estimate by state.\footnote{One could also estimate variance over a holdout set, which might improve bias.} Let $\hat \mu_{i0} = x_i^T \hat \beta_0$.
 
@@ -243,6 +253,34 @@ For computational simplicity, we use the upper bound $\frac{1}{4n_j}$ as a proxy
 % \]
 
 \section{Results}
+
+\begin{figure}[tbh]
+  \centering
+  \includegraphics{qq.pdf}
+  \caption{Normal Q-Q plot of residuals in fitting \eqref{eq:beta}}
+  \label{fig:qq}
+\end{figure}
+
+\begin{figure}[tbh]
+  \centering
+  \includegraphics{diagnostics.pdf}
+  \caption{Regression diagnostics in fitting \eqref{eq:beta}}
+  \label{fig:diag}
+\end{figure}
+
+\begin{figure}[tbh]
+  \centering
+  \includegraphics[width=\textwidth]{rep_seats.pdf}
+  \caption{Projected Republican seat distribution from prior, intermediate posterior, and full posterior}
+  \label{fig:hists}
+\end{figure}
+
+\begin{figure}[tbh]
+  \centering
+  \includegraphics[width=\textwidth]{rep_seats_with_diffused_prior.pdf}
+  \caption{Projected Republican seat distribution from prior, intermediate posterior, and full posterior, if we use a $\Norm(0.5\bm{1}, 10I)$ prior for the contested races. It may be odd that the prior is not centered at zero. The reason is that there are more races in which the Democrat is uncontested than those in which the Republican is. It may also be odd that the full posterior shifts the distribution to the right, unlike in \Cref{fig:hists}. The reason is that the district-wide polls shrink variance dramatically, and if the \emph{polled} districts are disproportionately Republican-leaning, then among the districts we are confident about, more districts are Republican-leaning. This would shift the seat distribution to the right, even though more values of posterior mean are less than $0.5$ (Democratic majority), since more Democratic districts have large variance.}
+  \label{fig:hists_diffuse}
+\end{figure}
 
 \section{Considerations}
 
