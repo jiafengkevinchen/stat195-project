@@ -27,7 +27,15 @@
 \section{Introduction}
 
 \section{Data}
+\subsection{Informative Prior Features}
+We first consider a range of potentially relevant features to uncover an overall trend in Midterm Election results since 2010. We collect, process, then use a second-order polynomial basis transform on the features to discover nonlinear correlations in constructing our prior. The following is a complete list of the features were used: Republican or Democratic incumbency, gender, voting pattern in the previous presidential election, percentage of minorities, presidential approval rating, candidates’ party alignment with the incumbent president, log of median income, percentage of district population with a Bachelor’s degree or above, one-hot encoding of each state, and the ratio of search frequency via Google Trends.
 
+One design choice we made in feature selection is to ignore Third-party candidates. Since 2010, there was a single Independent candidate (Jo Ann Emerson) who won a seat at the House, and given the that there was no evidence to support a sudden surge in Third-party candidates in the 2018 election, we focus on the major parties.   
+
+\subsection{Google Trends}
+Google Trends, unlike Google Keyword Planner, shows the relative popularity of search queries from a scale of 0 to 100. Relative popularity refers to the ratio of a query's search volumne to the sum of the search volumes of all possible queries. This allows for an easier and more intuitive comparison between terms via search across arbitrary periods of time. Moreover, Google Trends allows for a state-level granularity in search query trends. We take advantage of this to compare the candidates of each district by taking the ratio of their 
+
+\subsection{Polling Data for Posterior Updates}
 \section{Statistical model and prediction function}
 \subsection{Overview}
 Let \[Y_i = \frac{\text{Republican}\% }{\text{Republican}\% + \text{Democrat}\%}\] be the proportion of Republican vote share between the major parties in district $i$, where $i$ is indexed by the triple $(\text{state}, \text{district number}, \text{year of the race})$.
