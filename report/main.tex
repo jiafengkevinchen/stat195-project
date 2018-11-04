@@ -24,7 +24,8 @@ Let $x_i\in \R^p$ be a list of features (after suitable basis transformations)
 for the district. 
 
 A machine learning method can generate a prediction function $\hat f_{\cal T}$,
-where $\mathcal T$ is $Y_i, x_i$ over the training set. However, the
+where $\mathcal T$ is the collection of $Y_i, x_i$ over the training set.
+However, the
 distribution of the test set, $Y_i \mid x_i$ for those districts $i$ in 2018 may
 be
 substantially different from that of $Y_j \mid x_j$ for $j$ in the training
@@ -107,55 +108,109 @@ district-wide poll, and we use $a_j = e_i$ for a poll in district $i$, where
 $e_i$ is the $i$-th standard basis vector. For \Cref{eq:polls}, we need to
 estimate $\sigma_{Z_j}^2$ for both types of polls.
 
+We now discuss our approaches to estimation and justify discretionary choices
+made therein. 
+
 \subsection{Estimation}
 \label{sec:estimate}
+\subsubsection{Estimation for $\theta_0$}
+We first discuss estimation for $\theta_0 = (\beta_0, \Sigma_0)$.
+Let \begin{equation}
+\hat \beta_0 = \argmin_\beta \, \sum_{i=1}^{|\mathcal T|} w_i (y_i - x_i^T
+\beta)^2
++ \lambda
+\pr{\alpha \norm{\beta}_1 + (1-\alpha) \norm{\beta}_2^2}
+\tag{Estimation for $\beta_0$}
+\label{eq:beta}
+\end{equation}
+be fitted with an elastic net regularizer over the training data with weights
+$w_i$,
+where
+$(\alpha, \lambda)$ is chosen via 10-fold cross-validation. The weights we chose is uniform $w_i = 1$; however, in the spirit of efficient
+estimation as in weighted least
+squares, it may be desirable to choose the weights to the proportional to total
+votes cast, since we should expect that variance of the measurement $Y_i$ is
+inversely proportional to the number of votes cast, as $Y_i$ is an empirical
+average. In numerical experimentation, we found that the weights do not affect
+results much, and we keep $w_i = 1$ for simplicity.
 
-
-
-We justify the misspecification by noting that $\Beta(a,b) \dto
-\Norm(\mu,\sigma^2)$ where $a, b \to \infty$ in such a way that expectation and
-variance are fixed at $\mu,\sigma^2$.\footnote{Alternatively, we could fit some
-generalized linear model with link function implied by a Beta distribution, but
-Normal linear model provides a lot of computational ease.} Let \begin{align*}
-\hat \beta_0 = \argmin_\beta \, \sum_{i=1}^{N} (y_i - x_i^T \beta)^2 + \lambda\pr{\alpha \norm{\beta}_1 + (1-\alpha) \norm{\beta}_2}
-\end{align*}
-be fitted with an elastic net regularizer over the training data, where $\lambda$ is chosen via $K$-fold cross validation and $\alpha$ is some fixed constant, say $0.9$. Let $\hat \sigma_{0i}^2 = \sum (y_j - x_j^T \hat\beta_0)^2$ be fitted as the variance of the residuals, where the sum could be over districts in the same state, over all districts, or some kernel-weighted estimator. For simplicity, we stratify variance estimate by state.\footnote{One could also estimate variance over a holdout set, which might improve bias.} Let $\hat \mu_{i0} = x_i^T \hat \beta_0$.
-
-For a district that corresponds to an upcoming election, we form a prior 
-$Y_i\sim \Norm(\hat \mu_{i0}, \hat \sigma_0^2),$ or in vector form \[
-Y \sim \Norm(\hat \mu_0, \hat \Sigma_0)
+It is crucial, for the purpose of uncertainty quantification, that we perform good variance estimation. Let $S_i = \{j: \mathsf{state}(j) = 
+\mathsf{state}(i)\}$ be those districts in the same state as $i$ (across time),
+\[
+\hat \Sigma_{ii} = \frac{1}{|S_i|} \sum_{j\in S_i}
+\pr{y_j
+- x_j^T \hat \beta_0}^2 \tag{Estimation for variance}
+\label{eq:var}
 \]
-Note that in such a formulation, we ignore the sampling variance of $\hat \mu_{i0}$ and $\hat \sigma_0^2$,\footnote{The elastic net regularizer in the fitting method for $\beta$ makes the sampling variance of $\hat\beta_0$ difficult to compute.} instead forming a plug-in estimate, appealing to the law of large numbers.\footnote{From this point on, we drop the hat on $\mu_{i0}, \sigma_0$.} To obtain a more accurate and timely prediction for the district, we update the prior in two steps.  
+be an estimate for variance. Here we estimate variance by pooling over the state
+of a district, as states boundaries, unlike district boundaries, do not change
+over time. Alternatively, we could estimate variance by letting $S_i$ be those
+districts that share the same state and district identifier (which may not be
+the same geographical area due to redistricting), or with the $k$ nearest geographical neighbors of district $i$ (in the spirit of $k$NN). 
 
-First, to take into account the ``blue wave,'' we update our prior via the generic congressional ballot.\footnote{\url{https://projects.fivethirtyeight.com/congress-generic-ballot-polls/}} Formally, we model generic congressional poll as $Z_{G} \mid Y_i \sim \Norm(Y_i, \sigma_G^2),$ where $\sigma_G^2$ is estimated from the 90\% confidence interval provided by FiveThirtyEight. We have the following data generating process: \begin{align*}
-Y &\sim \Norm(\hat \mu_0, \hat \Sigma_0)\\
-Z_G \mid Y &\sim \Norm\pr{n^{-1}1^T Y, \sigma_G^2}
-\end{align*}
+Optionally, we also estimate off-diagonal elements of $\Sigma$. If district boundaries do not change over time, then we can easily estimate off-diagonal entries of $\Sigma$ as well, since we can use the variation over time to calculate the empirical analogue of covariance: \[
+\hat \Sigma_{ij} = \frac{1}{T}\sum_{t=1}^T \pr{y_{it} -x_{it}^T \hat \beta_0}\pr{y_{jt} -x_{jt}^T \hat \beta_0} \tag{Estimation for covariance}
+\label{eq:covar}
+\]
+This approach is no longer valid when district boundaries change over time. Nonetheless, we can still calculate $\hat \Sigma_{ij}$, ignoring district boundary changes.  Note that \eqref{eq:var} is inconsistent with \eqref{eq:covar}, and filling in estimates from \eqref{eq:covar} directly into $\Sigma$ would generate non-positive-definite matrices. As a result, we estimate the \emph{correlation} $\hat \rho_{ij}$ similar to \eqref{eq:covar},\footnote{We fill undefined values of $\hat \rho_{ij}$ with zero.} and use the estimate 
+ \[
+\hat \Sigma_{ij} = \hat \rho_{ij} \hat \Sigma_{ii} \hat \Sigma_{jj}
+ \tag{Estimation for covariance with correlation}
+\label{eq:covar_corr}
+\]
+which ensures that the resulting $\Sigma_0$ is positive definite. 
 
-We update our prior to form an intermediate posterior: \[
-Y \mid Z_G \sim \Norm(\mu_1, \Sigma_1).
-\]
-From now on, we drop the conditioning on $Z_G$.
+Here we discuss a few caveats. In principle, the variance we estimate should also take into account the uncertainty in $\hat \beta_0$. However, there is little consensus in uncertainty quantification for methods like elastic net and LASSO \citep{kyung2010penalized}, which remains an active research area. The fitting (along with cross-validation) is too expensive to bootstrap either, and we ignore the uncertainty in $\hat \beta_0$ for simplicity. Moreover, \eqref{eq:var} is likely an underestimate of variance---in linear regression, for example, we normalize such a sum via $(n-p)^{-1}$. The analogous inflation in our setting is with the degree of freedom in the elastic net \citep{zou2007degrees}---the estimate of the degree of freedom is about 100 for a dataset with $N=1500$; thus the inflation factor is about $\frac{1500}{1500-100} \approx 1.07$ for variance, which is sufficiently small to ignore. An alternative would be to estimate variance on a hold-out set, which is unbiased if the data is i.i.d.; we do not hold out for the sake of increasing training data.  
 
-Second, for some districts, we observe a number of district-specific polls $Z_{i1},\ldots,Z_{iJ_i}$.\footnote{In practice, we take the $J$ most recent polls (if available) in district $i$, where $J = 10$.} The variance across polls is much higher than implied by a simple Beta-Binomial model, where one assumes that each poll is an independent $\Bin(n_j,p)$ where $p$ is sampled from a Beta (again, approximately Normal) prior. As such, we hesitate from using a simple Beta-Binomial updating procedure and opt for the following model: We assume that poll $j$ has an independent bias $\epsilon_j \sim \Norm(0, \sigma^2_p)$, where $\sigma_p$ is estimated as the empirical variance of poll outcomes in a district: \begin{align*}
-Y &\sim \Norm(\mu_1, \Sigma_1) \quad \epsilon_j \sim \Norm(0, \sigma_p^2) \\
-Z_{ij}\mid Y_i, \epsilon_j &\sim n^{-1} \cdot \Bin(n, e_i^T Y + \epsilon_j),
-\end{align*}
-where $e_i$ is the $i$th standard basis vector. It's somewhat difficult to compute the posterior $Y \mid Z_{i1}, \ldots, Z_{iJ}$. Instead we may assume the misspecified model, justified as $n^{-1}\Bin(n, p)$ is approximately Normal when $n$ is large. \begin{align*}
-Y &\sim \Norm(\mu_{1}, \Sigma_{1}) \\
-Z_{ij} \mid Y &\sim \Norm\pr{e_i^TY, \frac{1}{4n_j} + \sigma_p^2},
-\end{align*}
-so as to (a) take advantage of Normal-Normal conjugacy and (b) ignore the dependence of $\var(Z_{ij})$ on $Y_i$. We now have the posterior by, say, sequentially Bayesian updating: \[
-Y \mid (Z_{i1},\ldots,Z_{iJ_i})_{i=1}^n \sim \Norm\pr{
-    \mu_{2}, \Sigma_{2}
-}.
-\]
-We predict $\hat Y_i = \mu_{2i}$, and, naturally \[
-\hat{\text{Winner}}_i = \begin{cases}
-    \text{Republican} & \mu_{2i} > .5 \\
-    \text{Democrat} & \mu_{2i} < .5
-\end{cases}
-\]
+As a notational matter, we now suppress the hat notation on $\beta_0, \Sigma_0.$ We use $\Sigma_0^d$ to distinguish the diagonal of $\Sigma_0$ from the full-estimate with \eqref{eq:covar_corr}. 
+\subsubsection{Estimation for polling variance}
+
+We now turn to estimation of variance in the likelihood of polls, $\sigma_{Z_j}^2$ in \Cref{eq:polls}. The main problem in variance estimation is to account for the large between-poll variance unpredicted by a simple model. Suppose poll outcomes are indepedently $n_j^{-1} \Bin(n_j, Y_i)$ conditional on $Y_i$, then the (conditional) standard deviation is as low as $1.58$ percentage points for a poll with $1000$ respondents. However, polls of this size display much more variation than predicted by a simple independent Binomial model. Therefore, we assume that there is some structural between-poll variance and attempt to estimate it from data.  
+
+% Let $\hat \sigma_{0i}^2 = \sum (y_j - x_j^T \hat\beta_0)^2$ be fitted as the variance of the residuals, where the sum could be over districts in the same state, over all districts, or some kernel-weighted estimator. For simplicity, we stratify variance estimate by state.\footnote{One could also estimate variance over a holdout set, which might improve bias.} Let $\hat \mu_{i0} = x_i^T \hat \beta_0$.
+
+
+% For a district that corresponds to an upcoming election, we form a prior 
+% $Y_i\sim \Norm(\hat \mu_{i0}, \hat \sigma_0^2),$ or in vector form \[
+% Y \sim \Norm(\hat \mu_0, \hat \Sigma_0)
+% \]
+% Note that in such a formulation, we ignore the sampling variance of $\hat
+% \mu_{i0}$ and $\hat \sigma_0^2$,\footnote{The elastic net regularizer in the
+% fitting method for $\beta$ makes the sampling variance of $\hat\beta_0$
+% difficult to compute.} instead forming a plug-in estimate, appealing to the law
+% of large numbers.\footnote{From this point on, we drop the hat on $\mu_{i0},
+% \sigma_0$.} To obtain a more accurate and timely prediction for the district, we
+% update the prior in two steps.
+
+% First, to take into account the ``blue wave,'' we update our prior via the generic congressional ballot.\footnote{\url{https://projects.fivethirtyeight.com/congress-generic-ballot-polls/}} Formally, we model generic congressional poll as $Z_{G} \mid Y_i \sim \Norm(Y_i, \sigma_G^2),$ where $\sigma_G^2$ is estimated from the 90\% confidence interval provided by FiveThirtyEight. We have the following data generating process: \begin{align*}
+% Y &\sim \Norm(\hat \mu_0, \hat \Sigma_0)\\
+% Z_G \mid Y &\sim \Norm\pr{n^{-1}1^T Y, \sigma_G^2}
+% \end{align*}
+
+% We update our prior to form an intermediate posterior: \[
+% Y \mid Z_G \sim \Norm(\mu_1, \Sigma_1).
+% \]
+% From now on, we drop the conditioning on $Z_G$.
+
+% Second, for some districts, we observe a number of district-specific polls $Z_{i1},\ldots,Z_{iJ_i}$.\footnote{In practice, we take the $J$ most recent polls (if available) in district $i$, where $J = 10$.} The variance across polls is much higher than implied by a simple Beta-Binomial model, where one assumes that each poll is an independent $\Bin(n_j,p)$ where $p$ is sampled from a Beta (again, approximately Normal) prior. As such, we hesitate from using a simple Beta-Binomial updating procedure and opt for the following model: We assume that poll $j$ has an independent bias $\epsilon_j \sim \Norm(0, \sigma^2_p)$, where $\sigma_p$ is estimated as the empirical variance of poll outcomes in a district: \begin{align*}
+% Y &\sim \Norm(\mu_1, \Sigma_1) \quad \epsilon_j \sim \Norm(0, \sigma_p^2) \\
+% Z_{ij}\mid Y_i, \epsilon_j &\sim n^{-1} \cdot \Bin(n, e_i^T Y + \epsilon_j),
+% \end{align*}
+% where $e_i$ is the $i$th standard basis vector. It's somewhat difficult to compute the posterior $Y \mid Z_{i1}, \ldots, Z_{iJ}$. Instead we may assume the misspecified model, justified as $n^{-1}\Bin(n, p)$ is approximately Normal when $n$ is large. \begin{align*}
+% Y &\sim \Norm(\mu_{1}, \Sigma_{1}) \\
+% Z_{ij} \mid Y &\sim \Norm\pr{e_i^TY, \frac{1}{4n_j} + \sigma_p^2},
+% \end{align*}
+% so as to (a) take advantage of Normal-Normal conjugacy and (b) ignore the dependence of $\var(Z_{ij})$ on $Y_i$. We now have the posterior by, say, sequentially Bayesian updating: \[
+% Y \mid (Z_{i1},\ldots,Z_{iJ_i})_{i=1}^n \sim \Norm\pr{
+%     \mu_{2}, \Sigma_{2}
+% }.
+% \]
+% We predict $\hat Y_i = \mu_{2i}$, and, naturally \[
+% \hat{\text{Winner}}_i = \begin{cases}
+%     \text{Republican} & \mu_{2i} > .5 \\
+%     \text{Democrat} & \mu_{2i} < .5
+% \end{cases}
+% \]
 
 \section{Results}
 
