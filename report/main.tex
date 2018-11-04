@@ -2,11 +2,26 @@
 \usepackage{macros}
 \usepackage{bbm}
 \usepackage{longtable}
+\usepackage{titlesec}
+
+
+\titleformat{\section}
+  {\normalfont\sffamily\Large\bfseries}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\sffamily\large\bfseries}
+  {\thesubsection}{1em}{}
+  
+\titleformat{\subsubsection}
+  {\normalfont\sffamily\normalsize\bfseries}
+  {\thesubsubsection}{1em}{}
+  
+\hypersetup{urlcolor=Purple}
 
 % \singlespacing
 \newgeometry{left=1in, right=1in, bottom=1.3in}
-\title{Prediction of the 2018 Midterm Elections}
-\author{Jiafeng Chen\thanks{Harvard College, \url{jiafengchen@college.harvard.edu}} \and Joon Yang\thanks{Harvard College, \url{joonhyukyang@college.harvard.edu}}}
+\title{\sffamily\bfseries{Prediction of the 2018 Midterm Elections}}
+\author{Jiafeng Chen\thanks{Harvard College, \url{jiafengchen@college.harvard.edu}} \and Joon Hyuk Yang\thanks{Harvard College, \url{joonhyukyang@college.harvard.edu}}}
 \begin{document}
 \maketitle
 \section{Introduction}
@@ -169,7 +184,7 @@ We now turn to estimation of variance in the likelihood of polls, $\sigma_{Z_j}^
 
 For a generic ballot poll $Z_j$, we leverage the \href{https://projects.fivethirtyeight.com/congress-generic-ballot-polls/}{FiveThirtyEight polling average estimates} since FiveThirtyEight provides a 90\% confidence interval. We use the (most recent) variance that implies the range of $90\%$ confidence computed by FiveThirtyEight. The FiveThirtyEight estimates are via kernel-weighted local polynomial smoothing,\footnote{The link on footnote 2 in \href{https://fivethirtyeight.com/features/heres-a-new-less-volatile-version-of-our-generic-ballot-tracker/}{FiveThirtyEight's methodology} links to the Stata manual for kernel-weighted local polynomial smoothing.} whose confidence comes from (we conjecture) bootstrapping. We directly use FiveThirtyEight's estimates for convenience. 
 
-For a district-wide polls $Z_j^i, j = 1,\ldots,J_i$, the variance comes from two components. The first component comes from the sampling error of the poll itself, which is the Binomial variance $\frac{Y_i(1-Y_i)}{n_j} \le \frac{1}{4n_j}$. The second component comes from a between-poll variance, which we estimate by taking the empirical variance of poll results in a district. We use \[
+For a district-wide polls $Z_j^i, j = 1,\ldots,J_i$, the variance comes from two components. The first component comes from the sampling error of the poll itself, which is the Binomial variance $\frac{Y_i(1-Y_i)}{n_j} \le \frac{1}{4n_j}$. The second component comes from a between-poll variance, which we estimate by taking the empirical variance of poll results in a district.\footnote{Filling missing values with state-averages.} We use \[
 \sigma^2_{Z_j} = \frac{1}{4n_j} + \sigma^2_{i,p} \tag{Estimation for district poll variance}
 \]
 For computational simplicity, we use the upper bound $\frac{1}{4n_j}$ as a proxy for the first part of variance, since it does not depend on $Y_i$ in order to take advantage of Bayesian conjugacy; the approximation is good for districts with $Y_i$ close to $1/2$, which is precisely those races that we especially care about. Full, proper posterior condition can still be achieved if we use the more precise $Y_i(1-Y_i)/n_j$ via an MCMC sampler. 
