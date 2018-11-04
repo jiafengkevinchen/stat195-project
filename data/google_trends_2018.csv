@@ -1,0 +1,436 @@
+,district,state_fips,year,rep_cand_oct,rep_cand_nov,dem_cand_oct,dem_cand_nov,dem_cand_name,rep_cand_name
+0,3.0,1.0,2018.0,10.6875,23.25,15.3125,22.375,Mallory Hagan,Mike Rogers
+1,51.0,6.0,2018.0,9.0,14.3125,13.4375,26.0,Juan Vargas,Juan Hidalgo
+2,4.0,39.0,2018.0,34.75,60.5,19.9375,27.6875,Janet Garrett,Jim Jordan
+3,11.0,37.0,2018.0,28.4375,36.875,17.25,24.0,Phillip Price,Mark Meadows
+4,3.0,39.0,2018.0,9.8125,9.5,16.875,16.0,Joyce Beatty,Jim Burgess
+5,1.0,29.0,2018.0,0.0,18.25,6.0625,12.4375,William Clay,Robert Vroman
+6,24.0,36.0,2018.0,26.4375,33.25,36.6875,46.6875,Dana Balter,John Katko
+7,9.0,34.0,2018.0,20.75,31.875,26.25,26.8125,Bill Pascrell,Eric Fisher
+8,11.0,17.0,2018.0,10.9375,18.375,31.625,33.6875,Bill Foster,Nick Stella
+9,1.0,40.0,2018.0,6.375,16.875,11.0,27.0625,Tim Gilpin,Kevin Hern
+10,2.0,41.0,2018.0,25.5625,26.9375,17.6875,20.8125,Jamie McLeod-Skinner,Greg Walden
+11,4.0,41.0,2018.0,0.0,0.0,10.9375,29.125,Peter DeFazio,Arthur Robinson
+12,1.0,25.0,2018.0,0.0,0.0,20.0,16.25,Richard Neal,A4m$2dkW0*21&zpM
+13,1.0,53.0,2018.0,8.5625,20.1875,16.1875,38.4375,Suzan DelBene,Jeffrey Beeler
+14,11.0,13.0,2018.0,3.0625,34.4375,9.125,16.4375,Flynn Broady,Barry Loudermilk
+15,0.0,10.0,2018.0,21.125,20.0,8.125,23.125,Lisa Rochester,Scott Walker
+16,1.0,37.0,2018.0,3.0,21.75,2.9375,6.25,G.K. Butterfield,Roger Allison
+17,4.0,32.0,2018.0,37.375,34.6875,32.6875,44.5625,Steven Horsford,Cresent Hardy
+18,3.0,28.0,2018.0,6.0,9.3125,8.9375,16.25,Michael Evans,Michael Guest
+19,4.0,17.0,2018.0,11.0625,17.25,24.375,20.5625,Jesus Garcia,Mark Lorch
+20,20.0,36.0,2018.0,0.0,0.0,23.6875,38.3125,Paul Tonko,Francis Vitollo
+21,11.0,12.0,2018.0,21.0625,44.625,5.75,18.25,Dana Cottrell,Daniel Webster
+22,5.0,26.0,2018.0,0.0,22.8125,0.0,0.0,Daniel Kildee,Travis Wines
+23,2.0,28.0,2018.0,0.0,0.0,25.0625,30.375,Bennie Thompson,A4m$2dkW0*21&zpM
+24,32.0,6.0,2018.0,26.8125,22.0,32.0625,9.3125,Grace Napolitano,Joshua Scott
+25,3.0,51.0,2018.0,0.0,0.0,29.75,32.75,Robert Scott,A4m$2dkW0*21&zpM
+26,31.0,6.0,2018.0,28.125,31.0,28.625,29.375,Pete Aguilar,Sean Flynn
+27,2.0,37.0,2018.0,35.75,39.125,54.625,55.6875,Linda Coleman,George Holding
+28,13.0,12.0,2018.0,14.625,20.875,51.5,55.5625,Charlie Crist,George Buck
+29,9.0,47.0,2018.0,0.0,15.5625,19.0625,13.9375,Steve Cohen,Charlotte Bergmann
+30,35.0,48.0,2018.0,0.0,22.875,24.375,27.5,Lloyd Doggett,David Smalling
+31,3.0,40.0,2018.0,6.875,18.5625,2.375,7.5,Frankie Robbins,Frank Lucas
+32,25.0,12.0,2018.0,0.0,3.5,37.5,26.1875,Mary Flores,Mario Diaz-Balart
+33,6.0,18.0,2018.0,20.5625,44.5,12.3125,14.1875,Jeannine Lake,Greg Pence
+34,6.0,6.0,2018.0,0.0,0.0,25.375,46.8125,Jrmar Jefferson,A4m$2dkW0*21&zpM
+35,6.0,47.0,2018.0,19.1875,26.125,2.125,20.3125,Dawn Barlow,John Rose
+36,23.0,36.0,2018.0,32.6875,34.125,27.6875,36.3125,Tracy Mitrano,Tom Reed
+37,3.0,49.0,2018.0,8.75,17.9375,12.375,29.75,James Singer,John Curtis
+38,27.0,48.0,2018.0,31.375,23.25,8.8125,13.5625,Eric Holguin,Michael Cloud
+39,18.0,17.0,2018.0,28.25,31.625,21.375,12.875,Junius Rodriguez,Darin LaHood
+40,44.0,6.0,2018.0,0.0,0.0,11.8125,21.875,Aja Brown,A4m$2dkW0*21&zpM
+41,9.0,17.0,2018.0,17.875,21.5,25.5625,24.1875,Jan Schakowsky,John Elleson
+42,21.0,48.0,2018.0,17.125,40.8125,19.125,40.0625,Joseph Kopser,Chip Roy
+43,0.0,50.0,2018.0,6.9375,10.5625,23.375,23.5,Peter Welch,Anya Tynio
+44,16.0,17.0,2018.0,14.5,37.75,8.25,24.0,Sara Dady,Adam Kinzinger
+45,7.0,6.0,2018.0,24.375,34.5625,27.0,35.6875,Ami Bera,Andrew Grant
+46,5.0,9.0,2018.0,9.0625,20.9375,22.5625,45.9375,Jahana Hayes,Manny Santos
+47,6.0,21.0,2018.0,23.5625,21.1875,42.8125,44.6875,Amy McGrath,Andy Barr
+48,9.0,25.0,2018.0,35.1875,29.8125,8.875,8.5625,William Keating,Peter Tedeschi
+49,5.0,25.0,2018.0,10.1875,17.9375,17.875,24.375,Katherine Clark,John Hugo
+50,2.0,18.0,2018.0,54.625,30.875,38.0625,32.9375,Mel Hall,Jackie Walorski
+51,9.0,36.0,2018.0,3.0625,9.5625,25.5625,18.8125,Yvette Clarke,Lutchi Gayot
+52,1.0,33.0,2018.0,31.8125,29.375,31.9375,30.0625,Chris Pappas,Eddie Edwards
+53,6.0,29.0,2018.0,9.0,25.375,11.125,13.5625,Henry Martin,Sam Graves
+54,8.0,18.0,2018.0,0.0,38.125,10.5625,3.375,William Tanoos,Larry Bucshon
+55,16.0,12.0,2018.0,30.375,25.6875,33.1875,30.625,David Shapiro,Vern Buchanan
+56,23.0,6.0,2018.0,40.25,51.6875,6.875,4.8125,Tatiana Matta,Kevin McCarthy
+57,7.0,25.0,2018.0,0.0,0.0,19.5625,33.1875,Ayanna Pressley,A4m$2dkW0*21&zpM
+58,6.0,24.0,2018.0,5.3125,14.875,39.375,54.8125,David Trone,Amie Hoeber
+59,5.0,47.0,2018.0,4.875,15.625,26.9375,23.0,Jim Cooper,Jody Ball
+60,16.0,42.0,2018.0,40.875,38.5625,14.875,29.625,Ron DiNicola,Mike Kelly
+61,10.0,39.0,2018.0,12.8125,26.8125,31.9375,15.25,Theresa Gasper,Michael Turner
+62,14.0,42.0,2018.0,30.5625,20.9375,15.125,18.375,Bibiana Boerio,Guy Reschenthaler
+63,5.0,22.0,2018.0,26.5,31.8125,6.125,13.375,Jessee Fleenor,Ralph Abraham
+64,3.0,8.0,2018.0,30.1875,41.5625,43.9375,51.375,Diane Bush,Scott Tipton
+65,4.0,22.0,2018.0,31.5,14.25,9.5,18.5625,Ryan Trundle,Mike Johnson
+66,2.0,54.0,2018.0,9.125,20.4375,12.75,33.75,Talley Sergent,Alex Mooney
+67,1.0,13.0,2018.0,32.25,20.9375,23.625,14.8125,Lisa Ring,Buddy Carter
+68,14.0,48.0,2018.0,26.9375,16.1875,24.1875,18.6875,Adrienne Bell,Randy Weber
+69,1.0,4.0,2018.0,24.25,31.875,6.75,8.375,Tom O'Halleran,Wendy Rogers
+70,4.0,27.0,2018.0,14.875,19.9375,18.6875,26.625,Betty McCollum,Greg Ryan
+71,12.0,37.0,2018.0,15.3125,26.8125,23.125,36.4375,Alma Adams,Paul Wright
+72,9.0,48.0,2018.0,0.0,0.0,0.0,0.0,,
+73,8.0,37.0,2018.0,40.125,31.6875,10.4375,13.25,Frank McNeill,Richard Hudson
+74,9.0,39.0,2018.0,0.0,6.5,19.4375,32.6875,Marcy Kaptur,Steven Kraus
+75,11.0,34.0,2018.0,24.9375,25.6875,33.375,58.125,Mikie Sherrill,Jay Webber
+76,0.0,56.0,2018.0,21.875,18.0,5.4375,23.25,Greg Hunter,Liz Cheney
+77,41.0,6.0,2018.0,9.0625,31.0,21.5625,40.75,Mark Takano,Aja Smith
+78,4.0,37.0,2018.0,0.25,0.8125,7.0,17.8125,David Price,Steve Von Loor
+79,4.0,26.0,2018.0,26.0625,38.5625,5.25,0.0,Jerry Hilliard,John Moolenaar
+80,15.0,39.0,2018.0,22.4375,37.375,15.9375,49.1875,Rick Neal,Steve Stivers
+81,16.0,39.0,2018.0,16.5625,29.5,7.375,10.25,Susan Palmer,Anthony Gonzalez
+82,15.0,17.0,2018.0,9.75,21.0,8.3125,4.125,Kevin Gaither,John Shimkus
+83,2.0,4.0,2018.0,28.75,26.3125,28.625,33.625,Ann Kirkpatrick,Lea Peterson
+84,3.0,5.0,2018.0,4.5,24.6875,3.0625,3.5,Josh Mahony,Steve Womack
+85,7.0,39.0,2018.0,25.0,26.625,44.75,44.3125,Ken Harbaugh,Bob Gibbs
+86,27.0,6.0,2018.0,0.0,0.0,18.6875,40.4375,Bryan Witt,A4m$2dkW0*21&zpM
+87,1.0,26.0,2018.0,24.8125,27.125,23.5625,30.3125,Matt Morgan,Jack Bergman
+88,22.0,6.0,2018.0,68.375,49.875,37.0,40.4375,Andrew Janz,Devin Nunes
+89,3.0,45.0,2018.0,5.125,13.1875,7.25,12.5625,Mary Geren,Jeff Duncan
+90,3.0,41.0,2018.0,0.0,0.0,12.5625,41.8125,Earl Blumenauer,A4m$2dkW0*21&zpM
+91,3.0,25.0,2018.0,10.6875,17.6875,16.0625,41.625,Lori Trahan,Rick Green
+92,4.0,53.0,2018.0,26.25,36.625,21.75,30.375,Christine Brown,Dan Newhouse
+93,2.0,51.0,2018.0,53.5625,69.375,34.625,51.0625,Elaine Luria,Scott Taylor
+94,6.0,36.0,2018.0,0.0,0.0,25.8125,27.6875,Grace Meng,A4m$2dkW0*21&zpM
+95,1.0,6.0,2018.0,13.6875,16.75,39.0,40.625,Audrey Denney,Doug LaMalfa
+96,3.0,48.0,2018.0,36.375,42.25,21.1875,31.75,Lorie Burch,Van Taylor
+97,7.0,24.0,2018.0,1.9375,12.8125,18.375,25.6875,Elijah Cummings,Richmond Davis
+98,17.0,42.0,2018.0,21.5,27.75,41.6875,35.5625,Conor Lamb,Keith Rothfus
+99,2.0,26.0,2018.0,16.5,18.5625,20.3125,23.6875,Rob Davidson,Bill Huizenga
+100,1.0,49.0,2018.0,10.25,37.875,9.375,28.4375,Lee Castillo,Rob Bishop
+101,7.0,53.0,2018.0,2.25,17.8125,6.75,49.375,Pramila Jayapal,Craig Keller
+102,12.0,17.0,2018.0,24.125,49.5625,31.6875,28.125,Brendan Kelly,Mike Bost
+103,3.0,31.0,2018.0,12.8125,28.4375,4.9375,13.125,Paul Theobald,Adrian Smith
+104,3.0,13.0,2018.0,11.25,27.75,11.8125,17.75,Chuck Enderlin,Drew Ferguson
+105,28.0,48.0,2018.0,0.0,0.0,20.125,24.3125,Henry Cuellar,A4m$2dkW0*21&zpM
+106,33.0,48.0,2018.0,6.6875,22.0625,12.875,18.5,Marc Veasey,Willie Billups
+107,3.0,27.0,2018.0,26.875,29.625,69.625,56.375,Dean Phillips,Erik Paulsen
+108,16.0,36.0,2018.0,0.0,0.0,9.5625,26.125,Eliot Engel,A4m$2dkW0*21&zpM
+109,2.0,13.0,2018.0,12.6875,12.0625,9.0,12.5625,Sanford Bishop,Herman West
+110,9.0,53.0,2018.0,0.0,0.0,27.0625,58.6875,Sarah Smith,A4m$2dkW0*21&zpM
+111,7.0,36.0,2018.0,0.0,0.0,4.9375,12.3125,Nydia Velázquez,A4m$2dkW0*21&zpM
+112,4.0,29.0,2018.0,17.4375,41.125,9.625,44.0625,Renee Hoagenson,Vicky Hartzler
+113,10.0,42.0,2018.0,21.75,32.8125,31.375,39.375,George Scott,Scott Perry
+114,4.0,13.0,2018.0,22.1875,20.4375,27.25,35.6875,Hank Johnson,Joe Profit
+115,7.0,26.0,2018.0,20.9375,40.1875,29.5,29.75,Gretchen Driskell,Tim Walberg
+116,15.0,42.0,2018.0,25.25,20.4375,8.25,25.4375,Susan Boser,Glenn Thompson
+117,1.0,32.0,2018.0,2.0625,22.375,12.6875,19.3125,Dina Titus,Joyce Bentley
+118,9.0,4.0,2018.0,17.1875,15.125,38.6875,33.5,Greg Stanton,Steve Ferrara
+119,39.0,6.0,2018.0,61.3125,64.0625,40.625,50.9375,Gil Cisneros,Young Kim
+120,7.0,51.0,2018.0,26.125,36.4375,32.0,40.4375,Abigail Spanberger,Dave Brat
+121,6.0,45.0,2018.0,0.0,0.0,24.0,12.5,James Clyburn,Gerhard Gressmann
+122,8.0,26.0,2018.0,17.625,18.6875,32.375,41.0625,Elissa Slotkin,Mike Bishop
+123,4.0,51.0,2018.0,14.0,35.6875,25.75,35.5625,Donald McEachin,Ryan McAdams
+124,23.0,12.0,2018.0,0.6875,0.375,2.6875,15.6875,Debbie Schultz,Joe Kaufman
+125,4.0,9.0,2018.0,31.375,27.6875,13.125,34.3125,Jim Himes,Harry Arora
+126,14.0,6.0,2018.0,0.0,0.0,29.0625,31.875,Jackie Speier,Cristina Osmeña
+127,1.0,36.0,2018.0,34.5,54.6875,31.1875,48.0,Perry Gershon,Lee Zeldin
+128,1.0,21.0,2018.0,7.5,14.4375,42.5,34.4375,Paul Walker,James Comer
+129,12.0,12.0,2018.0,14.625,27.5625,14.5,39.5,Chris Hunter,Gus Bilirakis
+130,13.0,39.0,2018.0,9.625,11.8125,31.9375,35.75,Tim Ryan,Chris DePizzo
+131,4.0,40.0,2018.0,12.625,47.125,13.8125,6.6875,Mary Brannon,Tom Cole
+132,24.0,12.0,2018.0,0.0,0.0,18.5,21.4375,Frederica Wilson,A4m$2dkW0*21&zpM
+133,10.0,12.0,2018.0,0.0,0.0,28.125,27.5625,Val Demings,A4m$2dkW0*21&zpM
+134,11.0,6.0,2018.0,19.5,33.0625,12.0,10.6875,Mark DeSaulnier,John Fitzgerald
+135,7.0,42.0,2018.0,33.9375,22.875,40.625,50.6875,Susan Wild,Marty Nothstein
+136,2.0,6.0,2018.0,0.0,10.25,13.25,32.4375,Jared Huffman,Dale Mensing
+137,9.0,37.0,2018.0,34.625,52.0625,25.25,42.875,Dan McCready,Mark Harris
+138,4.0,48.0,2018.0,15.4375,22.375,12.875,6.3125,Catherine Krantz,John Ratcliffe
+139,5.0,12.0,2018.0,0.0,19.3125,0.0,0.0,A4m$2dkW0*21&zpM,Virginia Fuller
+140,2.0,8.0,2018.0,6.1875,26.8125,8.3125,45.25,Joe Neguse,Peter Yu
+141,14.0,26.0,2018.0,11.0625,28.4375,32.6875,32.9375,Brenda Lawrence,Marc Herschfus
+142,24.0,48.0,2018.0,15.875,35.6875,8.25,33.4375,Jan McDowell,Kenny Marchant
+143,0.0,30.0,2018.0,10.1875,15.25,21.9375,26.25,Kathleen Williams,Greg Gianforte
+144,36.0,48.0,2018.0,8.1875,20.5625,5.0,22.25,Dayna Steele,Brian Babin
+145,13.0,17.0,2018.0,32.3125,35.75,32.0,36.5,Betsy Londrigan,Rodney Davis
+146,5.0,18.0,2018.0,22.125,28.625,19.5625,16.25,Dee Thornton,Susan Brooks
+147,2.0,5.0,2018.0,22.25,32.125,18.375,31.25,Clarke Tucker,French Hill
+148,2.0,19.0,2018.0,13.375,25.375,4.0,13.0,David Loebsack,Christopher Peters
+149,21.0,12.0,2018.0,0.0,0.0,10.6875,44.875,Lois Frankel,A4m$2dkW0*21&zpM
+150,2.0,55.0,2018.0,0.0,0.0,22.25,31.0,Mark Pocan,A4m$2dkW0*21&zpM
+151,14.0,39.0,2018.0,15.5,25.1875,55.4375,40.5,Betsy Rader,David Joyce
+152,1.0,54.0,2018.0,6.25,16.75,17.25,22.3125,Kendra Fershee,David McKinley
+153,5.0,45.0,2018.0,22.125,29.9375,20.5,19.875,Archie Parnell,Ralph Norman
+154,11.0,36.0,2018.0,1.5625,3.1875,38.5,57.3125,Max Rose,Daniel Donovan
+155,17.0,48.0,2018.0,25.75,35.8125,12.9375,15.875,Rick Kennedy,Bill Flores
+156,8.0,42.0,2018.0,31.25,34.3125,29.25,26.125,Matt Cartwright,John Chrin
+157,1.0,24.0,2018.0,34.9375,27.75,22.1875,34.125,Jesse Colvin,Andy Harris
+158,25.0,6.0,2018.0,7.0625,11.4375,38.0,50.375,Katie Hill,Steve Knight
+159,16.0,6.0,2018.0,28.1875,43.875,20.9375,36.3125,Jim Costa,Elizabeth Heng
+160,9.0,18.0,2018.0,13.8125,17.0,25.375,30.0625,Liz Watson,Trey Hollingsworth
+161,1.0,22.0,2018.0,20.6875,40.125,5.625,10.6875,Lee Dugas,Steve Scalise
+162,12.0,36.0,2018.0,1.9375,6.1875,27.25,34.625,Carolyn Maloney,Eliot Rabin
+163,9.0,12.0,2018.0,6.0,15.0,21.5625,35.5625,Darren Soto,Wayne Liebnitzky
+164,12.0,34.0,2018.0,7.3125,35.4375,27.0625,36.25,Bonnie Coleman,Daryl Kipnis
+165,3.0,6.0,2018.0,13.25,13.4375,30.0625,23.75,John Garamendi,Charlie Schaupp
+166,2.0,39.0,2018.0,29.0625,20.9375,20.9375,31.125,Jill Schiller,Brad Wenstrup
+167,53.0,6.0,2018.0,23.4375,8.3125,38.25,39.3125,Susan Davis,Morgan Murtaugh
+168,3.0,42.0,2018.0,14.125,10.875,18.5,22.5,Dwight Evans,Bryan Leib
+169,3.0,29.0,2018.0,35.8125,27.3125,4.8125,0.0,Katy Geppert,Blaine Luetkemeyer
+170,7.0,55.0,2018.0,29.5625,39.3125,12.9375,11.625,Margaret Engebretson,Sean Duffy
+171,17.0,6.0,2018.0,23.0,20.125,0.0,0.0,A4m$2dkW0*21&zpM,Ron Cohen
+172,2.0,45.0,2018.0,33.9375,25.0,6.6875,32.25,Sean Carrigan,Joe Wilson
+173,3.0,54.0,2018.0,27.8125,31.6875,29.4375,63.125,Richard Ojeda,Carol Miller
+174,8.0,4.0,2018.0,29.5625,38.6875,35.0625,38.8125,Hiral Tipirneni,Debbie Lesko
+175,3.0,47.0,2018.0,23.1875,20.625,10.5625,24.5,Danielle Mitchell,Chuck Fleischmann
+176,4.0,34.0,2018.0,27.3125,41.25,0.0,2.25,Joshua Welle,Chris Smith
+177,22.0,36.0,2018.0,39.25,57.75,26.9375,33.125,Anthony Brindisi,Claudia Tenney
+178,26.0,12.0,2018.0,33.8125,46.25,22.6875,36.0,Debbie Mucarsel-Powell,Carlos Curbelo
+179,34.0,48.0,2018.0,13.125,21.5,15.5,12.5,Filemon Vela,Rey Gonzalez
+180,5.0,34.0,2018.0,8.0625,13.375,23.9375,26.0,Josh Gottheimer,John McCann
+181,4.0,4.0,2018.0,25.0,12.5625,17.6875,8.6875,David Brill,Paul Gosar
+182,8.0,48.0,2018.0,31.1875,47.4375,31.5,28.8125,Steven David,Kevin Brady
+183,8.0,6.0,2018.0,16.8125,48.0625,0.0,0.0,A4m$2dkW0*21&zpM,Tim Donnelly
+184,3.0,36.0,2018.0,9.625,23.75,13.9375,13.375,Thomas Suozzi,Dan DeBono
+185,13.0,48.0,2018.0,14.8125,20.1875,0.0,16.375,Greg Sagan,Mac Thornberry
+186,11.0,42.0,2018.0,13.0,19.8125,40.6875,45.625,Jess King,Lloyd Smucker
+187,8.0,13.0,2018.0,17.9375,47.5625,0.0,0.0,A4m$2dkW0*21&zpM,Austin Scott
+188,6.0,25.0,2018.0,4.75,4.5,23.125,36.9375,Seth Moulton,Joseph Schneider
+189,38.0,6.0,2018.0,0.0,19.5625,0.0,0.0,Linda Sánchez,Ryan Downing
+190,23.0,48.0,2018.0,28.625,50.625,61.5625,61.5625,Gina Jones,Will Hurd
+191,4.0,42.0,2018.0,38.875,28.5625,19.9375,30.0,Madeleine Dean,Dan David
+192,5.0,55.0,2018.0,0.0,6.1875,16.0625,21.0625,Tom Palzewicz,James Sensenbrenner
+193,6.0,34.0,2018.0,0.0,2.0625,20.0,25.3125,Frank Pallone,Richard Pezzullo
+194,12.0,26.0,2018.0,8.0625,17.0,38.4375,27.875,Debbie Dingell,Jeff Jones
+195,14.0,17.0,2018.0,11.0,26.6875,40.75,72.9375,Lauren Underwood,Randy Hultgren
+196,8.0,39.0,2018.0,17.125,19.25,6.8125,23.875,Vanessa Enoch,Warren Davidson
+197,20.0,48.0,2018.0,0.0,0.0,25.875,55.375,Joaquin Castro,A4m$2dkW0*21&zpM
+198,20.0,6.0,2018.0,0.0,0.0,18.75,53.0,Jimmy Panetta,A4m$2dkW0*21&zpM
+199,4.0,55.0,2018.0,2.5,17.5,17.4375,21.875,Gwen Moore,Tim Rogers
+200,27.0,36.0,2018.0,42.5625,47.5,32.8125,42.875,Nate McMurray,Chris Collins
+201,5.0,4.0,2018.0,13.3125,50.25,13.1875,45.375,Joan Greene,Andy Biggs
+202,2.0,53.0,2018.0,0.0,0.0,16.4375,42.75,Rick Larsen,A4m$2dkW0*21&zpM
+203,4.0,45.0,2018.0,14.0,23.0625,24.4375,28.375,Brandon Brown,William Timmons
+204,6.0,1.0,2018.0,21.9375,22.4375,6.25,26.4375,Danner Kline,Gary Palmer
+205,7.0,48.0,2018.0,33.625,44.9375,40.6875,46.875,Lizzie Fletcher,John Culberson
+206,4.0,20.0,2018.0,22.25,30.125,23.625,37.75,James Thompson,Ron Estes
+207,4.0,47.0,2018.0,18.4375,25.0625,29.3125,37.375,Mariah Phillips,Scott DesJarlais
+208,4.0,25.0,2018.0,0.0,0.0,30.75,33.0625,Joseph Kennedy,A4m$2dkW0*21&zpM
+209,35.0,6.0,2018.0,12.625,3.75,22.6875,22.5,Norma Torres,Christian Valiente
+210,2.0,49.0,2018.0,23.5,33.375,12.0,31.3125,Shireen Ghorbani,Chris Stewart
+211,3.0,20.0,2018.0,20.0,30.0,34.125,51.5625,Sharice Davids,Kevin Yoder
+212,0.0,38.0,2018.0,15.25,32.25,7.875,16.75,Mac Schneider,Kelly Armstrong
+213,14.0,36.0,2018.0,4.0625,9.125,48.125,43.625,Alexandria Ocasio-Cortez,Anthony Pappas
+214,8.0,24.0,2018.0,22.9375,31.8125,17.0,26.625,Jamie Raskin,John Walsh
+215,7.0,12.0,2018.0,34.625,39.9375,38.3125,43.6875,Stephanie Murphy,Mike Miller
+216,2.0,24.0,2018.0,8.8125,18.5,0.0,0.0,A. Dutch Ruppersberger,Liz Matory
+217,11.0,48.0,2018.0,0.0,16.5,6.1875,27.0,Jennie Leeder,Michael Conaway
+218,9.0,13.0,2018.0,7.875,22.375,10.625,8.0,Josh McCall,Doug Collins
+219,3.0,55.0,2018.0,7.8125,13.9375,16.9375,31.3125,Ron Kind,Steve Toft
+220,18.0,42.0,2018.0,0.0,0.0,17.8125,44.0,Mike Doyle,A4m$2dkW0*21&zpM
+221,7.0,1.0,2018.0,0.0,0.0,30.5625,21.4375,Terri Sewell,A4m$2dkW0*21&zpM
+222,1.0,18.0,2018.0,5.875,9.125,0.0,0.0,Peter Visclosky,Mark Leyva
+223,9.0,51.0,2018.0,27.875,38.125,21.75,31.75,Anthony Flaccavento,Morgan Griffith
+224,22.0,12.0,2018.0,8.25,23.5625,33.0625,28.125,Ted Deutch,Nicolas Kimaz
+225,10.0,51.0,2018.0,43.375,59.25,47.9375,63.125,Jennifer Wexton,Barbara Comstock
+226,8.0,53.0,2018.0,24.8125,41.9375,25.25,32.625,Kim Schrier,Dino Rossi
+227,5.0,53.0,2018.0,33.0625,43.0625,47.8125,59.5,Lisa Brown,Cathy Rodgers
+228,2.0,9.0,2018.0,6.125,8.3125,17.3125,26.25,Joe Courtney,Dan Postemski
+229,2.0,48.0,2018.0,24.375,54.75,12.8125,34.4375,Todd Litton,Dan Crenshaw
+230,8.0,17.0,2018.0,8.5625,4.3125,24.25,45.9375,Raja Krishnamoorthi,Jitendra Diganvker
+231,3.0,34.0,2018.0,13.875,35.5,43.5625,53.625,Andy Kim,Tom MacArthur
+232,10.0,6.0,2018.0,18.75,22.8125,42.6875,65.3125,Josh Harder,Jeff Denham
+233,40.0,6.0,2018.0,0.0,0.0,12.5625,23.125,Lucille Roybal-Allard,A4m$2dkW0*21&zpM
+234,30.0,48.0,2018.0,0.0,0.0,32.25,24.0625,Eddie Johnson,A4m$2dkW0*21&zpM
+235,10.0,36.0,2018.0,15.0,20.5,13.625,35.0625,Jerrold Nadler,Naomi Levin
+236,19.0,48.0,2018.0,20.6875,24.0625,2.5,19.6875,Miguel Levario,Jodey Arrington
+237,33.0,6.0,2018.0,7.5,7.375,34.0625,42.6875,Ted Lieu,Kenneth Wright
+238,2.0,15.0,2018.0,5.6875,14.5,28.8125,37.4375,Tulsi Gabbard,Brian Evans
+239,19.0,12.0,2018.0,25.0,24.9375,20.0,34.9375,David Holden,Francis Rooney
+240,3.0,17.0,2018.0,16.25,17.75,0.0,7.0,Daniel Lipinski,Arthur Jones
+241,5.0,17.0,2018.0,15.6875,16.375,16.375,36.5625,Mike Quigley,Tom Hanson
+242,5.0,37.0,2018.0,36.75,34.375,0.0,0.0,A4m$2dkW0*21&zpM,Virginia Foxx
+243,1.0,17.0,2018.0,3.0625,12.6875,29.6875,34.625,Bobby Rush,Jimmy Tillman
+244,0.0,46.0,2018.0,16.125,38.75,14.9375,15.3125,Tim Bjorkman,Dusty Johnson
+245,5.0,13.0,2018.0,0.0,0.0,23.8125,34.5,John Lewis,A4m$2dkW0*21&zpM
+246,3.0,4.0,2018.0,5.9375,8.8125,20.5,39.25,Raul Grijalva,Nick Pierson
+247,10.0,34.0,2018.0,2.9375,21.375,26.5625,40.3125,Donald Payne,Agha Khan
+248,1.0,1.0,2018.0,11.9375,15.125,15.3125,25.125,Robert Kennedy,Bradley Byrne
+249,15.0,6.0,2018.0,2.6875,8.9375,23.6875,41.4375,Eric Swalwell,Rudy Peters
+250,5.0,8.0,2018.0,5.4375,23.875,10.0625,38.1875,Stephany Spaulding,Doug Lamborn
+251,2.0,47.0,2018.0,17.25,32.875,19.375,23.0,Renee Hoyos,Tim Burchett
+252,5.0,6.0,2018.0,0.0,0.0,52.375,52.8125,Mike Thompson,A4m$2dkW0*21&zpM
+253,21.0,6.0,2018.0,35.3125,31.625,0.0,0.0,A4m$2dkW0*21&zpM,David Valadao
+254,1.0,19.0,2018.0,32.875,30.875,43.1875,60.75,Abby Finkenauer,Rod Blum
+255,13.0,6.0,2018.0,0.0,0.0,32.1875,50.9375,Barbara Lee,A4m$2dkW0*21&zpM
+256,12.0,42.0,2018.0,19.4375,26.0625,22.6875,19.625,Marc Friedenberg,Tom Marino
+257,26.0,48.0,2018.0,27.3125,28.3125,10.4375,33.3125,Linsey Fagan,Michael Burgess
+258,6.0,37.0,2018.0,21.8125,37.625,22.125,33.1875,Ryan Watts,Mark Walker
+259,1.0,47.0,2018.0,25.125,35.125,6.0,14.25,Marty Olsen,Phil Roe
+260,4.0,8.0,2018.0,18.4375,36.0625,9.8125,40.1875,Karen McCormick,Ken Buck
+261,8.0,47.0,2018.0,12.9375,32.8125,6.0625,28.75,Erika Pearson,David Kustoff
+262,6.0,22.0,2018.0,13.0625,22.0625,9.9375,26.0625,Andie Saizan,Garrett Graves
+263,29.0,48.0,2018.0,2.9375,5.5,15.625,24.25,Sylvia Garcia,Phillip Aronoff
+264,15.0,12.0,2018.0,6.25,15.3125,16.1875,27.125,Kristen Carlson,Ross Spano
+265,3.0,53.0,2018.0,17.5,32.625,36.75,48.4375,Carolyn Long,Jaime Beutler
+266,6.0,27.0,2018.0,15.875,24.8125,17.125,19.5625,Ian Todd,Tom Emmer
+267,13.0,42.0,2018.0,35.375,25.9375,12.625,15.9375,Brent Ottaway,John Joyce
+268,1.0,48.0,2018.0,8.0625,12.3125,3.125,1.1875,Shirley McKellar,Louie Gohmert
+269,10.0,17.0,2018.0,21.0625,11.5625,0.0,0.0,Bradley Schneider,Douglas Bennett
+270,1.0,16.0,2018.0,16.5,52.5,5.4375,15.125,Cristina McNeil,Russ Fulcher
+271,14.0,12.0,2018.0,0.0,0.0,19.1875,28.625,Kathy Castor,A4m$2dkW0*21&zpM
+272,17.0,36.0,2018.0,0.0,0.0,36.875,40.75,Nita Lowey,A4m$2dkW0*21&zpM
+273,2.0,32.0,2018.0,15.25,41.375,21.625,42.125,Clint Koble,Mark Amodei
+274,7.0,18.0,2018.0,19.5625,0.0,0.0,0.0,André Carson,Wayne Harmon
+275,7.0,34.0,2018.0,27.4375,40.3125,36.0,37.5,Tom Malinowski,Leonard Lance
+276,6.0,4.0,2018.0,24.875,25.1875,25.5625,44.0,Anita Malik,David Schweikert
+277,1.0,15.0,2018.0,0.0,19.1875,0.0,0.0,A4m$2dkW0*21&zpM,Cam Cavasso
+278,22.0,48.0,2018.0,16.75,18.0,12.875,48.375,Sri Kulkarni,Pete Olson
+279,3.0,9.0,2018.0,3.5,9.125,22.0,24.3125,Rosa DeLauro,Angel Cadena
+280,2.0,1.0,2018.0,12.875,21.875,5.9375,26.8125,Tabitha Isner,Martha Roby
+281,18.0,36.0,2018.0,0.0,0.0,41.0625,33.375,Sean Maloney,James O'Donnell
+282,12.0,48.0,2018.0,25.625,34.375,13.5625,31.6875,Vanessa Adia,Kay Granger
+283,13.0,26.0,2018.0,0.0,0.0,19.75,18.875,Rashida Tlaib,A4m$2dkW0*21&zpM
+284,5.0,21.0,2018.0,5.4375,0.0,0.0,22.5,Kenneth Stepp,Harold Rogers
+285,18.0,48.0,2018.0,1.375,0.8125,16.9375,5.6875,Sheila Lee,Ava Pate
+286,9.0,26.0,2018.0,8.75,17.3125,17.875,39.9375,Andy Levin,Candius Stearns
+287,3.0,12.0,2018.0,20.3125,34.5625,10.5,21.5,Yvonne Hinson,Ted Yoho
+288,2.0,21.0,2018.0,11.25,16.6875,11.25,19.375,Hank Linderman,Brett Guthrie
+289,1.0,41.0,2018.0,5.375,37.5,13.5625,34.375,Suzanne Bonamici,John Verbeek
+290,1.0,12.0,2018.0,33.5625,54.6875,8.5,17.875,Jennifer Zimmerman,Matt Gaetz
+291,1.0,31.0,2018.0,23.125,38.5625,11.6875,18.6875,Jessica McClure,Jeff Fortenberry
+292,24.0,6.0,2018.0,18.875,17.625,10.125,31.875,Salud Carbajal,Justin Fareed
+293,2.0,40.0,2018.0,14.75,26.75,2.3125,6.625,Jason Nichols,Markwayne Mullin
+294,8.0,25.0,2018.0,0.0,0.0,35.625,19.375,Stephen Lynch,A4m$2dkW0*21&zpM
+295,2.0,31.0,2018.0,30.375,39.375,49.25,46.6875,Kara Eastman,Don Bacon
+296,14.0,13.0,2018.0,12.3125,6.25,19.25,3.125,Steven Foster,Tom Graves
+297,32.0,48.0,2018.0,47.5625,60.5,54.4375,53.5625,Colin Allred,Pete Sessions
+298,36.0,6.0,2018.0,17.4375,20.3125,26.4375,32.9375,Raul Ruiz,Kimberlin Pelzer
+299,8.0,29.0,2018.0,26.6875,30.3125,5.5,5.0625,Kathy Ellis,Jason Smith
+300,6.0,48.0,2018.0,28.8125,29.0,12.3125,47.25,Jana Sanchez,Ron Wright
+301,4.0,24.0,2018.0,2.1875,3.75,27.375,37.5,Anthony Brown,George McDermott
+302,2.0,17.0,2018.0,4.1875,6.625,20.8125,24.75,Robin Kelly,David Merkle
+303,1.0,35.0,2018.0,0.0,0.0,29.25,16.4375,Debra Haaland,Janice Arnold-Jones
+304,17.0,17.0,2018.0,0.0,0.0,29.4375,36.5,Cheri Bustos,William Fawell
+305,30.0,6.0,2018.0,3.875,22.0,13.9375,30.75,Brad Sherman,Mark Reed
+306,13.0,36.0,2018.0,2.5,5.0625,21.9375,18.375,Adriano Espaillat,Jineea Butler
+307,13.0,13.0,2018.0,5.0,6.3125,28.5,37.375,David Scott,David Callahan
+308,6.0,17.0,2018.0,30.5625,43.4375,49.0,57.3125,Sean Casten,Peter Roskam
+309,6.0,53.0,2018.0,4.5625,19.75,12.625,28.4375,Derek Kilmer,Douglas Dightman
+310,8.0,51.0,2018.0,19.8125,25.9375,25.5625,32.6875,Don Beyer,Thomas Oh
+311,10.0,26.0,2018.0,54.125,43.375,0.0,1.25,Kimberly Bizon,Paul Mitchell
+312,10.0,37.0,2018.0,8.125,25.4375,32.0,31.8125,David Brown,Patrick McHenry
+313,2.0,29.0,2018.0,33.1875,44.3125,26.4375,43.75,Cort VanOstran,Ann Wagner
+314,20.0,12.0,2018.0,0.0,0.0,19.0,22.3125,Alcee Hastings,A4m$2dkW0*21&zpM
+315,45.0,6.0,2018.0,30.6875,42.875,54.25,52.875,Katie Porter,Mimi Walters
+316,15.0,36.0,2018.0,18.1875,6.0625,0.0,0.0,José Serrano,Jason Gonzalez
+317,18.0,6.0,2018.0,19.9375,16.625,39.0625,30.8125,Anna Eshoo,Christine Russell
+318,3.0,19.0,2018.0,35.125,45.1875,37.3125,40.75,Cindy Axne,David Young
+319,11.0,51.0,2018.0,26.0625,33.5625,8.3125,17.8125,Gerald Connolly,Jeff Dove
+320,1.0,23.0,2018.0,9.3125,13.3125,20.375,28.1875,Chellie Pingree,Mark Holbrook
+321,1.0,27.0,2018.0,26.5625,25.6875,42.25,47.5,Dan Feehan,Jim Hagedorn
+322,4.0,6.0,2018.0,25.4375,26.5625,56.25,49.6875,Jessica Morse,Tom McClintock
+323,2.0,27.0,2018.0,15.125,15.0625,43.125,42.4375,Angie Craig,Jason Lewis
+324,1.0,51.0,2018.0,8.375,11.1875,39.5625,40.0625,Vangie Williams,Robert Wittman
+325,3.0,18.0,2018.0,23.25,27.6875,34.75,42.1875,Courtney Tritch,Jim Banks
+326,5.0,48.0,2018.0,6.3125,14.3125,9.125,26.1875,Dan Wood,Lance Gooden
+327,2.0,25.0,2018.0,21.1875,31.6875,10.1875,11.3125,James McGovern,Tracy Lovvorn
+328,3.0,21.0,2018.0,15.5625,19.0,26.5,50.1875,John Yarmuth,Vickie Glisson
+329,2.0,44.0,2018.0,0.0,10.6875,10.6875,17.25,Jim Langevin,Salvatore Caiozzo
+330,4.0,19.0,2018.0,5.9375,22.9375,1.0,1.1875,J.D. Scholten,Steve King
+331,8.0,12.0,2018.0,17.9375,31.0625,12.9375,36.125,Sanjay Patel,Bill Posey
+332,1.0,8.0,2018.0,0.0,37.375,8.8125,44.875,Diana DeGette,Charles Stockham
+333,5.0,29.0,2018.0,6.4375,7.0625,29.75,26.5,Emanuel Cleaver,Jacob Turk
+334,3.0,26.0,2018.0,33.75,39.0,3.5,14.3125,Cathy Albro,Justin Amash
+335,21.0,36.0,2018.0,24.3125,32.8125,35.5,40.625,Tedra Cobb,Elise Stefanik
+336,3.0,37.0,2018.0,31.6875,37.1875,0.0,0.0,A4m$2dkW0*21&zpM,Walter Jones
+337,26.0,6.0,2018.0,39.8125,50.25,13.9375,8.5625,Julia Brownley,Antonio Sabato
+338,12.0,39.0,2018.0,40.3125,54.4375,6.0625,20.0,Danny O'Connor,Troy Balderson
+339,10.0,53.0,2018.0,3.25,31.0,11.1875,19.9375,Denny Heck,Joseph Brumbles
+340,3.0,22.0,2018.0,21.625,18.5625,0.0,9.6875,Verone Thomas,Josh Guillory
+341,6.0,26.0,2018.0,12.4375,19.6875,15.0,38.1875,Matt Longjohn,Fred Upton
+342,42.0,6.0,2018.0,28.0,29.5625,10.6875,24.4375,Julia Peacock,Ken Calvert
+343,49.0,6.0,2018.0,35.8125,49.6875,53.625,46.0625,Mike Levin,Diane Harkey
+344,27.0,12.0,2018.0,50.625,46.6875,32.0,48.4375,Donna Shalala,Maria Salazar
+345,2.0,35.0,2018.0,18.4375,31.9375,41.125,57.625,Xochitl Small,Yvette Herrell
+346,2.0,23.0,2018.0,23.625,25.8125,31.625,49.1875,Jared Golden,Bruce Poliquin
+347,4.0,49.0,2018.0,22.9375,30.6875,17.0,20.8125,Ben McAdams,Mia Love
+348,28.0,6.0,2018.0,6.0625,8.875,49.25,67.8125,Adam Schiff,Johnny Nalbandian
+349,7.0,45.0,2018.0,8.5,18.875,5.0,17.25,Robert Williams,Tom Rice
+350,5.0,1.0,2018.0,0.0,0.0,15.25,44.125,Peter Joffrion,A4m$2dkW0*21&zpM
+351,4.0,28.0,2018.0,16.125,10.5,10.1875,21.875,Jeramey Anderson,Steven Palazzo
+352,5.0,40.0,2018.0,16.4375,29.9375,20.25,31.0,Kendra Horn,Steve Russell
+353,9.0,6.0,2018.0,13.3125,30.9375,21.9375,40.875,Jerry McNerney,Marla Livengood
+354,37.0,6.0,2018.0,9.25,5.875,31.8125,30.8125,Karen Bass,Ron Bassilian
+355,6.0,13.0,2018.0,7.3125,13.4375,28.125,23.375,Lucy McBath,Karen Handel
+356,1.0,9.0,2018.0,0.0,15.1875,14.875,37.6875,John Larson,Jennifer Nye
+357,5.0,39.0,2018.0,6.125,3.0625,9.9375,9.75,Michael Galbraith,Robert Latta
+358,2.0,22.0,2018.0,0.0,0.0,27.0625,34.4375,Cedric Richmond,A4m$2dkW0*21&zpM
+359,6.0,8.0,2018.0,25.875,31.875,44.1875,60.5625,Jason Crow,Mike Coffman
+360,2.0,20.0,2018.0,21.6875,29.25,29.75,45.25,Paul Davis,Steve Watkins
+361,43.0,6.0,2018.0,1.9375,2.0,10.875,26.625,Maxine Waters,Omar Navarro
+362,26.0,36.0,2018.0,7.5,6.5625,22.3125,32.75,Brian Higgins,Renee Zeno
+363,3.0,24.0,2018.0,14.875,23.875,15.0,33.0,John Sarbanes,Charles Anthony
+364,7.0,47.0,2018.0,34.8125,46.75,16.5,21.5625,Justin Kanew,Mark Green
+365,5.0,24.0,2018.0,9.5625,3.1875,15.0,25.6875,Steny Hoyer,William Devine
+366,2.0,33.0,2018.0,0.0,5.75,12.0,19.8125,Ann Kuster,Steven Negron
+367,4.0,18.0,2018.0,11.125,22.4375,17.0625,31.375,Tobi Beck,Jim Baird
+368,10.0,48.0,2018.0,15.3125,36.0625,36.6875,57.8125,Mike Siegel,Michael McCaul
+369,6.0,42.0,2018.0,8.1875,3.6875,25.0,48.6875,Chrissy Houlahan,Greg McCauley
+370,34.0,6.0,2018.0,0.0,0.0,23.625,35.5625,Jimmy Gomez,A4m$2dkW0*21&zpM
+371,4.0,21.0,2018.0,23.3125,19.1875,4.5,14.125,Seth Hall,Thomas Massie
+372,7.0,4.0,2018.0,0.0,0.0,15.375,32.875,Ruben Gallego,A4m$2dkW0*21&zpM
+373,7.0,37.0,2018.0,15.875,20.0,17.8125,44.5,Kyle Horton,David Rouzer
+374,5.0,41.0,2018.0,2.875,18.9375,23.75,44.9375,Kurt Schrader,Mark Callahan
+375,1.0,28.0,2018.0,12.625,18.0625,2.1875,8.375,Randy Wadkins,Trent Kelly
+376,19.0,36.0,2018.0,14.5625,23.0,28.3125,50.5,Antonio Delgado,John Faso
+377,5.0,36.0,2018.0,0.0,0.0,21.4375,20.8125,Gregory Meeks,A4m$2dkW0*21&zpM
+378,25.0,36.0,2018.0,18.125,35.5625,6.625,12.5,Joseph Morelle,Jim Maxwell
+379,19.0,6.0,2018.0,6.125,21.125,16.4375,21.1875,Zoe Lofgren,Justin Aguilera
+380,1.0,39.0,2018.0,16.3125,16.6875,34.375,37.25,Aftab Pureval,Steve Chabot
+381,8.0,27.0,2018.0,11.0625,33.75,49.9375,42.3125,Joe Radinovich,Pete Stauber
+382,7.0,17.0,2018.0,4.3125,17.625,25.5625,19.875,Danny Davis,Craig Cameron
+383,25.0,48.0,2018.0,62.75,45.6875,19.5625,28.25,Julie Oliver,Roger Williams
+384,5.0,42.0,2018.0,29.3125,37.625,18.3125,24.9375,Mary Scanlon,Pearl Kim
+385,7.0,13.0,2018.0,35.0625,29.0,33.1875,40.4375,Carolyn Bourdeaux,Rob Woodall
+386,7.0,29.0,2018.0,27.4375,22.4375,12.75,6.25,Jamie Schoolcraft,Billy Long
+387,17.0,12.0,2018.0,21.0,32.125,25.25,37.375,April Freeman,Greg Steube
+388,1.0,45.0,2018.0,25.625,32.625,48.625,58.625,Joe Cunningham,Katie Arrington
+389,6.0,12.0,2018.0,26.0625,42.0625,39.625,44.9375,Nancy Soderberg,Michael Waltz
+390,29.0,6.0,2018.0,10.5,6.25,5.375,0.0,Tony Cárdenas,Benito Bernal
+391,46.0,6.0,2018.0,10.5625,11.6875,5.25,16.1875,Luis Correa,Russell Lambert
+392,2.0,36.0,2018.0,14.4375,21.3125,27.875,51.375,Liuba Shirley,Pete King
+393,0.0,2.0,2018.0,18.6875,33.4375,16.5625,33.375,Alyse Galvin,Don Young
+394,31.0,48.0,2018.0,48.125,41.375,0.0,6.4375,Mary Hegar,John Carter
+395,11.0,39.0,2018.0,9.0,3.125,19.625,14.75,Marcia Fudge,Beverly Goldstein
+396,4.0,12.0,2018.0,24.6875,27.875,11.25,26.1875,George Selmont,John Rutherford
+397,2.0,12.0,2018.0,23.625,29.5625,6.3125,29.5,Bob Rackleff,Neal Dunn
+398,5.0,27.0,2018.0,5.6875,13.8125,24.6875,50.1875,Ilhan Omar,Jennifer Zielinski
+399,6.0,51.0,2018.0,37.625,43.0,40.1875,57.625,Jennifer Lewis,Ben Cline
+400,47.0,6.0,2018.0,5.25,22.125,19.1875,19.875,Alan Lowenthal,John Briscoe
+401,18.0,12.0,2018.0,28.1875,27.5,21.3125,33.25,Lauren Baer,Brian Mast
+402,2.0,34.0,2018.0,16.0,17.625,24.9375,38.8125,Jeff Van Drew,Seth Grossman
+403,12.0,13.0,2018.0,25.75,42.9375,12.8125,19.3125,Francys Johnson,Rick Allen
+404,15.0,48.0,2018.0,2.5,18.6875,21.0,19.75,Vicente Gonzalez,Tim Westley
+405,16.0,48.0,2018.0,6.1875,18.9375,13.0625,29.3125,Veronica Escobar,Rick Seeberger
+406,1.0,20.0,2018.0,12.875,19.375,4.8125,20.5,Alan LaPolice,Roger Marshall
+407,8.0,34.0,2018.0,5.0,10.125,14.8125,32.0625,Albio Sires,John Muniz
+408,8.0,36.0,2018.0,0.0,0.0,11.625,38.75,Hakeem Jeffries,A4m$2dkW0*21&zpM
+409,4.0,5.0,2018.0,5.875,28.1875,2.875,16.9375,Hayden Shamel,Bruce Westerman
+410,7.0,8.0,2018.0,0.0,49.125,0.0,0.0,A4m$2dkW0*21&zpM,Mark Barrington
+411,13.0,37.0,2018.0,14.4375,27.25,40.5625,40.75,Kathy Manning,Ted Budd
+412,2.0,42.0,2018.0,6.125,8.375,14.8125,24.375,Brendan Boyle,David Torres
+413,6.0,39.0,2018.0,38.1875,41.125,2.5,8.25,Shawna Roberts,Bill Johnson
+414,3.0,32.0,2018.0,32.9375,38.125,39.9375,42.6875,Susie Lee,Danny Tarkanian
+415,6.0,55.0,2018.0,25.625,21.0625,45.125,35.25,Dan Kohl,Glenn Grothman
+416,1.0,55.0,2018.0,15.5625,17.0625,39.9375,43.625,Randy Bryce,Bryan Steil
+417,1.0,5.0,2018.0,17.75,31.125,0.0,17.9375,Chintan Desai,Rick Crawford
+418,1.0,44.0,2018.0,3.9375,9.25,12.9375,13.6875,David Cicilline,Patrick Donovan
+419,11.0,26.0,2018.0,27.9375,27.4375,28.125,51.1875,Haley Stevens,Lena Epstein
+420,5.0,51.0,2018.0,25.5,29.25,49.25,48.75,Leslie Cockburn,Denver Riggleman
+421,10.0,13.0,2018.0,9.0,32.625,6.8125,9.0625,Tabitha Johnson-Green,Jody Hice
+422,3.0,35.0,2018.0,0.0,10.875,8.625,30.25,Ben Lujan,Jerald McFall
+423,9.0,42.0,2018.0,19.875,26.3125,29.25,44.5625,Denny Wolff,Dan Meuser
+424,48.0,6.0,2018.0,33.125,35.6875,51.5,55.1875,Harley Rouda,Dana Rohrabacher
+425,52.0,6.0,2018.0,9.25,26.625,29.8125,39.0625,Scott Peters,Omar Qudrat
+426,4.0,36.0,2018.0,9.625,25.25,38.4375,51.4375,Kathleen Rice,Ameer Benno
+427,2.0,16.0,2018.0,20.875,27.125,18.75,26.5625,Aaron Swisher,Mike Simpson
+428,1.0,34.0,2018.0,19.1875,19.25,6.875,45.75,Donald Norcross,Paul Dilks
+429,12.0,6.0,2018.0,0.8125,2.6875,33.8125,58.3125,Nancy Pelosi,Lisa Remmer
+430,50.0,6.0,2018.0,55.625,55.5,26.8125,31.5,Ammar Campa-Najjar,Duncan Hunter
+431,7.0,27.0,2018.0,11.3125,16.75,13.125,40.0625,Collin Peterson,Dave Hughes
+432,8.0,55.0,2018.0,52.0625,47.625,12.3125,15.125,Beau Liegeois,Mike Gallagher
+433,4.0,1.0,2018.0,15.1875,17.75,4.5625,7.8125,Lee Auman,Robert Aderholt
+434,1.0,42.0,2018.0,15.5,24.9375,33.9375,51.875,Scott Wallace,Brian Fitzpatrick
