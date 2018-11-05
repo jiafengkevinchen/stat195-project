@@ -26,6 +26,38 @@
 \maketitle
 \section{Introduction}
 
+We present a statistical model and a machine learning method to perform
+prediction for the 2018 elections of the U.S. House of Representatives. The main
+challenge of such a prediction problem is that the historical panel of election
+data is short---both in terms of years with adequate non-missing covariates 
+(2010--2016) and in terms of observations (435 per year). The shortness in years
+creates a generalization problem. All elections in 2010--2016 are considered
+Republican wave elections, and models may reasonably display favor towards
+Republicans. This problem could be mitigated if we condition on more and more
+data and avoid overfitting. However, the low number of observations becomes
+extremely problematic, as $p > N$ problems are quickly encountered---especially
+with complex basis transforms over the data. Furthermore, the changing political
+landscape of 2018 makes real-time polling data quite valuable, but with the lack
+of historical polling data, we cannot simply incorporate polling as an
+additional feature.
+
+We devise a Bayesian approach that seeks to mitigate these problems. In our
+approach, the training data (data before 2018) is used to construct a prior for
+2018, which is then updated with polling data for 2018. Our model resembles
+what Nate Silver describes FiveThirtyEight's Classic House Forecast Model to
+be, where our prior estimation is akin to Silver's ``fundamentals'' and our
+polling updating is akin to that in Silver's model. Our approach is fully
+compatible with additional features or polls, and admits a few extensions.
+Moreover, thanks to a few simplifying approximations we make, our approach is
+extremely computationally tractable, while remaining statistically faithful. 
+
+This report is organized as follows. \Cref{sec:data} discusses various datasets
+we use and preprocessing applied. \Cref{sec:model} discusses our statistical
+model and machine learning method, including parameterizations, estimation
+strategies and the considerations therein. \Cref{sec:results} displays various
+updated predictions and provides a brief discussion of potential shortcomings
+and alternative strategies. 
+
 \section{Data}
 \subsection{Informative Prior Features}
 We first consider a range of potentially relevant features to uncover an overall trend in Midterm Election results since 2010. We collect, process, then use a second-order polynomial basis transform on the features to discover nonlinear correlations in constructing our prior. The following features were used to inform our prior: Republican or Democratic incumbency, gender, voting pattern in the previous presidential election, percentage of minorities, presidential approval rating, candidates’ party alignment with the incumbent president, log of median income, percentage of district population with a Bachelor’s degree or above, one-hot encoding of each state, and the ratio of search frequency via Google Trends.
@@ -55,9 +87,8 @@ There are two considerations with respect to using Google Trends data. One obvio
 
 \subsection{Polling Data for Posterior Updates}
 
-
-
-\section{Statistical model and Prediction Function}
+\section{Statistical model and prediction function}
+\label{sec:model}
 \subsection{Overview}
 Let \[Y_i = \frac{\text{Republican}\% }{\text{Republican}\% + \text{Democrat}\%}\] be the proportion of Republican vote share between the major parties in district $i$, where $i$ is indexed by the triple $(\text{state}, \text{district number}, \text{year of the race})$.
 %\footnote{Assuming districts have no time dimension: i.e. Alabama-01 is
@@ -202,11 +233,15 @@ This approach is no longer valid when district boundaries change over time. None
  \tag{Estimation for covariance with correlation}
 \label{eq:covar_corr}
 \]
-which ensures that the resulting $\Sigma_0$ is positive definite. 
+which ensures that the resulting $\Sigma_0$ is positive definite. \Cref
+{fig:hists,fig:diag} displays the Bayesian updating for both specifications,
+$\Sigma_0$ diagonal and $\Sigma_0$ fully general. They do not display signifcant
+differences.
 
 Now we discuss a few caveats regarding variance estimation. In principle, the variance we estimate should also take into account the uncertainty in $\hat \beta_0$. However, there is little consensus in uncertainty quantification for methods like elastic net and LASSO \citep{kyung2010penalized}, which remains an active research area. The fitting (along with cross-validation) is too expensive to bootstrap either, and we ignore the uncertainty in $\hat \beta_0$ for simplicity. Moreover, \eqref{eq:var} is likely an underestimate of variance---in linear regression, for example, we inflate the naive variance estimate by $n/(n-p)$, where $p$ is the degrees of freedom in a linear regression. The analogous inflation in our setting is with the degree of freedom in the elastic net \citep{zou2007degrees}---the estimate of the degree of freedom is about 100 for a dataset with $N=1500$; thus the inflation factor is about $\frac{1500}{1500-100} \approx 1.07$ for variance, which is sufficiently small to ignore. An alternative would be to estimate variance on a hold-out set, which is unbiased if the data is i.i.d.; we do not hold out for the sake of increasing training data.  
 
-As a notational matter, we now suppress the hat notation on $\beta_0, \Sigma_0.$ We use $\Sigma_0^d$ to distinguish the diagonal of $\Sigma_0$ from the full-estimate with \eqref{eq:covar_corr}. 
+As a notational matter, we now suppress the hat notation on $\beta_0, \Sigma_0.$
+
 \subsubsection{Estimation for polling variance}
 
 We now turn to estimation of variance in the likelihood of polls, $\sigma_{Z_j}^2$ in \Cref{eq:polls}. The main problem in variance estimation is to account for the large between-poll variance unpredicted by a simple model. Suppose poll outcomes are indepedently $n_j^{-1} \Bin(n_j, Y_i)$ conditional on $Y_i$, then the (conditional) standard deviation is as low as $1.58$ percentage points for a poll with $1000$ respondents. However, polls of this size display much more variation than predicted by a simple independent Binomial model. Therefore, we assume that there is some structural between-poll variance and attempt to estimate it from data.  
@@ -227,6 +262,16 @@ where $ \sigma^2_{538}$ is the variance implied by FiveThirtyEight's 90\% confid
 From estimating $\theta_0$, for the competitive races in 2018, we obtain a prior estimate $Y \sim \Norm(\mu_0, \Sigma_0)$, where $\mu_0 = X\beta_0$. The polls form a vector $Z \mid Y \sim \Norm(\mu_Z, \Sigma_Z)$ for $\mu_Z, \Sigma_Z$ compatible with our assumptions. Therefore, our posterior is \[
 Y\mid Z \sim \Norm\pr{(\Sigma_0 + \Sigma_Z)^{-1} \pr{\Sigma_Z\mu_0 + \Sigma_0 \mu_Z}, \pr{\Sigma_Z^{-1} + \Sigma_0^{-1}}^{-1}}.
 \]
+
+Prediction for a single district simply takes the entry corresponding to the
+district in the distribution $Y \mid Z$, a marginally Normal distribution, and
+computes the probability that the Normal random variable is greater than $0.5$,
+which is equal to the (marginal) probability that a Republican wins in the
+district. Prediction for the entire race (as in 
+\Cref{fig:hists,fig:diagonal_prior,fig:hists_diffuse}) is done by drawing
+$\tilde y$ from $Y \mid Z$ and computing the number of entries for which
+$\tilde y_j > 0.5$, as the seats that Republicans win among the competitive
+seats.
 
 % Let $\hat \sigma_{0i}^2 = \sum (y_j - x_j^T \hat\beta_0)^2$ be fitted as the variance of the residuals, where the sum could be over districts in the same state, over all districts, or some kernel-weighted estimator. For simplicity, we stratify variance estimate by state.\footnote{One could also estimate variance over a holdout set, which might improve bias.} Let $\hat \mu_{i0} = x_i^T \hat \beta_0$.
 
@@ -274,6 +319,7 @@ Y\mid Z \sim \Norm\pr{(\Sigma_0 + \Sigma_Z)^{-1} \pr{\Sigma_Z\mu_0 + \Sigma_0 \m
 % \]
 
 \section{Results}
+\label{sec:results}
 
 \begin{figure}[tbh]
   \centering
@@ -292,9 +338,19 @@ Y\mid Z \sim \Norm\pr{(\Sigma_0 + \Sigma_Z)^{-1} \pr{\Sigma_Z\mu_0 + \Sigma_0 \m
 \begin{figure}[tbh]
   \centering
   \includegraphics[width=\textwidth]{rep_seats.pdf}
-  \caption{Projected Republican seat distribution from prior, intermediate posterior, and full posterior}
+  \caption{Projected Republican seat distribution from prior, intermediate
+  posterior, and full posterior with fully general $\Sigma_0$.}
   \label{fig:hists}
 \end{figure}
+
+\begin{figure}[tbh]
+  \centering
+  \includegraphics[width=\textwidth]{rep_seats_with_diagonal_prior.pdf}
+  \caption{Projected Republican seat distribution from prior, intermediate
+  posterior, and full posterior with diagonal $\Sigma_0$}
+  \label{fig:diagonal_prior}
+\end{figure}
+
 
 \begin{figure}[tbh]
   \centering
