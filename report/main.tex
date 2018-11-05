@@ -355,6 +355,7 @@ seats.
 
 \section{Results}
 \label{sec:results}
+\subsection{Testing the Normality Assumption}
 Before discussing the outcome of our prediction, we first verify our initial assumption that the underlying distribution is, in fact, Normal. We do so by plotting the following Q-Q plot. Indeed, through a quick visual inspection of \Cref{fig:qq}, the empirical quantile and the true Normal quantile form a roughly straight line, suggesting our assumptions hold water.
 
 \begin{figure}[tbh]
@@ -373,15 +374,20 @@ Next, we examine the residuals and the fitted value regressing over them. \Cref{
   \label{fig:diag}
 \end{figure}
 
-Our final prediction is 
+\subsection{Final Projection and Baseline Comparisons}
+Our final prediction for the 2018 Midterm Elections is shown in \Cref{fig:hists}. We observe the empirical distributions of our prior, posterior after updating with the generic ballot, and the final posterior after updating with the district-level polls from section 3.4.
 
 \begin{figure}[tbh]
   \centering
   \includegraphics[width=\textwidth]{rep_seats.pdf}
   \caption{Projected Republican seat distribution from prior, intermediate
-  posterior, and full posterior with fully general $\Sigma_0$.}
+  posterior, and full posterior with fully general $\Sigma_0$}
   \label{fig:hists}
 \end{figure}
+
+As discussed in sections 2 and 3, our prior is informed by the collected historical data. Reflecting the ground truth trend of Republican dominance in the House, our prior is centered at a Republican majority with the likelihood of Democrats taking the majority at 17\%. With subsequent polling updates to our prior, we observe the posterior shift to a Democratic majority with a slightly higher peak.
+
+Our final posterior presented in \Cref{fig:hists} makes use of $\Sigma_0$ for our prior covariance matrix where the off-diagonal entries are estimated via the empirical variation over time assuming unchanged district boundaries. If we assume independence across each district, we have a diagonal $\Sigma_0$, which produces the result of \Cref{fig:diagonal_prior}. A quick visual inspection shows that posterior is centered slightly more conservatively, giving the Democrats a slightly smaller margin of victory (86\% chance of winning the majority after the generic ballot update, and 94\% after the district poll update).
 
 \begin{figure}[tbh]
   \centering
@@ -391,6 +397,7 @@ Our final prediction is
   \label{fig:diagonal_prior}
 \end{figure}
 
+To illustrate the informative nature of our data-derived prior, we plot the shift in distribution with an uninformed prior $\Norm(0.5\bm{1}, 10I)$ in \Cref{fig:hists_diffuse}.
 
 \begin{figure}[tbh]
   \centering
@@ -399,11 +406,29 @@ Our final prediction is
   \label{fig:hists_diffuse}
 \end{figure}
 
+\Cref{fig:538_hist} provides FiveThirtyEight's predictions on the day before the Election as a baseline against which we can compare our own predictions. Note the wider tails in FiveThirtyEight's prediction and a more favorable mean for the Democrats than our predictions.
+
 \begin{figure}[tbh]
   \centering
-  \includegraphics[width=\textwidth]{projected_map.png}
+  \includegraphics[scale=0.4]{538_hist}
+  \caption{FiveThirtyEight Forecast for House on Nov. 5, 2018}
+  \label{fig:538_hist}
+\end{figure}
+
+As a final comparison against FiveThirtyEight's baseline, we map our prediction on the district level in \Cref{fig:proj_map} and compare our results against that of FiveThirtyEight in \Cref{fig:538_map}.
+
+\begin{figure}[tbh]
+  \centering
+  \includegraphics[scale=1.7]{projected_map.png}
   \caption{Projected marginal probabilities of Republican victory}
-  \label{fig:map}
+  \label{fig:proj_map}
+\end{figure}
+
+\begin{figure}[tbh]
+  \centering
+  \includegraphics[scale=0.45]{538_map}
+  \caption{District-level forecast by FiveThirtyEight}
+  \label{fig:538_map}
 \end{figure}
 
 \section{Conclusion, discussion, and future considerations}
