@@ -59,6 +59,7 @@ updated predictions and provides a brief discussion of potential shortcomings
 and alternative strategies. 
 
 \section{Data}
+\label{sec:data}
 \subsection{Informative Prior Features}
 We first consider a range of potentially relevant features to uncover an overall trend in Midterm Election results since 2010. We collect, process, then use a second-order polynomial basis transform on the features to discover nonlinear correlations in constructing our prior. The following features were used to inform our prior: Republican or Democratic incumbency, gender, voting pattern in the previous presidential election, percentage of minorities, presidential approval rating, candidates’ party alignment with the incumbent president, log of median income, percentage of district population with a Bachelor’s degree or above, one-hot encoding of each state, and the ratio of search frequency via Google Trends.
 
@@ -67,11 +68,12 @@ We first consider a range of potentially relevant features to uncover an overall
  \begin{figure}[tbh]
   \centering
   \includegraphics[scale=0.8]{feature_coeff}
-  \caption{Second Order Feataure Coefficients}
-  \label{fig:Feataure Coefficients}
+  \caption{Some feature coefficients}
+  \label{fig:feature}
 \end{figure}
 
-To illustrate the relative importance of these featurees, Figure 1 shows the top 10 features in terms of absolute value of weight coefficients. Empirically, we observe that minority percentage, percentage with Bachelor's degree, and presidential approval rating are features that carry the most weight. Note that \textit{rep\_to\_tot\_oct} and \textit{rep\_to\_tot\_nov} also exhibit strong predictive power, each representing the query frequency on Google Trends for the Republican candidate over both candidates in the first half of October and second half of October, respectively.
+To illustrate the relative importance of these featurees, \Cref{fig:feature} shows the top 10
+features in terms of absolute value of weight coefficients. Empirically, we observe that minority percentage, percentage with Bachelor's degree, and presidential approval rating are features that carry the most weight. Note that \textit{rep\_to\_tot\_oct} and \textit{rep\_to\_tot\_nov} also exhibit strong predictive power, each representing the query frequency on Google Trends for the Republican candidate over both candidates in the first half of October and second half of October, respectively.
 
 \subsection{Google Trends}
 Google Trends, unlike Google Keyword Planner, shows the relative popularity of search queries from a scale of 0 to 100. Relative popularity refers to the ratio of a query's search volumne to the sum of the search volumes of all possible queries. This allows for an easier and more intuitive comparison between terms via search across arbitrary periods of time. Moreover, Google Trends allows for a State-level (but not District-level) granularity in search query trends. We take advantage of this to compare how often a candidate's name was searched in within the State compared to his or her opponent for the first half of October versus the second half of October.
@@ -80,10 +82,18 @@ Google Trends, unlike Google Keyword Planner, shows the relative popularity of s
   \centering
   \includegraphics[scale=0.4]{google_trends_ex}
   \caption{Google Trends Nevada District 4}
-  \label{fig:Google Trends}
+  \label{fig:trends}
 \end{figure}
 
-There are two considerations with respect to using Google Trends data. One obvious but important point to note is that we do not discern the positivity or negativity of these queries. Instead, we simply observe the total number of queries. Though this may be a noisy estimate of the true support for a candidate, as was the case for the 2016 Presidential Election, we adhere to the notion that \textit{there is no such thing as bad publicity} and The Economist's article that Google Trends ``provide real-time information that is not available anywhere else". \footnote{https://www.economist.com/graphic-detail/2016/03/01/how-useful-is-google-search-data-when-predicting-primary-elections} Second, the usage of Google as a way to collect information in 2018 increased significantly compared to previous years. Furthermore, the use of Google is biased in favor of a younger population, and may be a disproportionate representation of interest for candidates. With these two caveats in mind, however, we find that the inclusion of Google Trends data augments the information of our prior significantly, compared to a prediction without it.
+There are two considerations with respect to using Google Trends data. One
+obvious but important point to note is that we do not discern the positivity or
+negativity of these queries. Instead, we simply observe the total number of
+queries. Though this may be a noisy estimate of the true support for a
+candidate, as was the case for the 2016 Presidential Election, we adhere to the
+notion that \textit{there is no such thing as bad publicity} and The Economist's
+article that Google Trends ``provide real-time information that is not available
+anywhere else". \footnote{See this
+\href{https://www.economist.com/graphic-detail/2016/03/01/how-useful-is-google-search-data-when-predicting-primary-elections}{Economist} article.} Second, the usage of Google as a way to collect information in 2018 increased significantly compared to previous years. Furthermore, the use of Google is biased in favor of a younger population, and may be a disproportionate representation of interest for candidates. With these two caveats in mind, however, we find that the inclusion of Google Trends data augments the information of our prior significantly, compared to a prediction without it.
 
 \subsection{Polling Data for Posterior Updates}
 
