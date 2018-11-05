@@ -76,7 +76,7 @@ To illustrate the relative importance of these featurees, \Cref{fig:feature} sho
 features in terms of absolute value of weight coefficients. Empirically, we observe that minority percentage, percentage with Bachelor's degree, and presidential approval rating are features that carry the most weight. Note that \textit{rep\_to\_tot\_oct} and \textit{rep\_to\_tot\_nov} also exhibit strong predictive power, each representing the query frequency on Google Trends for the Republican candidate over both candidates in the first half of October and second half of October, respectively.
 
 \subsection{Google Trends}
-Google Trends, unlike Google Keyword Planner, shows the relative popularity of search queries from a scale of 0 to 100. Relative popularity refers to the ratio of a query's search volumne to the sum of the search volumes of all possible queries. This allows for an easier and more intuitive comparison between terms via search across arbitrary periods of time. Moreover, Google Trends allows for a State-level (but not District-level) granularity in search query trends. We take advantage of this to compare how often a candidate's name was searched in within the State compared to his or her opponent for the first half of October versus the second half of October.
+Google Trends, unlike Google Keyword Planner, shows the \textit{relative} popularity of search queries from a scale of 0 to 100. Relative popularity refers to the ratio of a query's search volumne to the sum of the search volumes of all possible queries. This allows for an easier and more intuitive comparison between terms via search across arbitrary periods of time. Moreover, Google Trends allows for a State-level (but not District-level) granularity in search query trends. We take advantage of this to compare how often a candidate's name was searched in within the State compared to his or her opponent for the first half of October versus the second half of October.
 
  \begin{figure}[tbh]
   \centering
@@ -95,7 +95,33 @@ article that Google Trends ``provide real-time information that is not available
 anywhere else". \footnote{See this
 \href{https://www.economist.com/graphic-detail/2016/03/01/how-useful-is-google-search-data-when-predicting-primary-elections}{Economist} article.} Second, the usage of Google as a way to collect information in 2018 increased significantly compared to previous years. Furthermore, the use of Google is biased in favor of a younger population, and may be a disproportionate representation of interest for candidates. With these two caveats in mind, however, we find that the inclusion of Google Trends data augments the information of our prior significantly, compared to a prediction without it.
 
+\subsection{Preprocessing}
+
+In addition to the standard zero-mean and normalization procedure, we employed several techniques to filter, augment, and otherwise preprocess the collected data in order to produce a sensible outcome by making the most out of the data. In the case of gender, the feature set provided by the class was incomplete. In order to fill the NaN values, we use the gender-guesser library to help classify entries in which we lack the information. \footnote{\href{https://pypi.org/project/gender-guesser/}{gender-guesser} Python Library} In the case of a gender neutral names that were not classified in the training data, we populated them with 0.5.
+
+Another feature with a significant number of missing entries was the percentage of self-identifying Republicans versus Democrats in the district. In order to fill the missing entries with a reasonable approximation, we augmented the features with the 2016 State-level political allegiance data if no data was available for the district for any years, while fitting a forward-filling certain years in question for districts that have the data for some years but not others.
+
+For other features with a few NaN values, we made weak assumptions about the similarity of districts within a given year and used neighboring districts' mean to fill the empty entries. 
+
 \subsection{Polling Data for Posterior Updates}
+
+Once we constructed our preliminary model, we collect and utilize two kinds of polling data to update our prior: the generic ballot poll and a district-wide poll. Both the generic and district polling data were collected from FiveThirtyEight. The first is the generic polling data. FiveThirtyEight claims to use a slow moving generic ballot average, incorporating a larger number of polls at the cost of recency of polls.
+
+ \begin{figure}[tbh]
+  \centering
+  \includegraphics[scale=0.5]{general_polling}
+  \caption{FiveThirtyEight General Polling Data}
+  \label{fig:genpolls}
+\end{figure}
+
+Above is the \Cref{fig:genpolls} from FiveThirtyEight, where the estimate is the dark lines and the highlighted badwidth around representing the 90\% confidence interval of all polls falling within the range. The second is the latest district-level polls, also collected by FiveThirtyEight. For this poll, as we will later explain in 3.3.2, we use the size of the district poll in order to bound the variance. 
+
+ \begin{figure}[tbh]
+  \centering
+  \includegraphics[scale=0.3]{district_polls}
+  \caption{FiveThirtyEight District Polling Data}
+  \label{fig:distpolls}
+\end{figure}
 
 \section{Statistical model and prediction function}
 \label{sec:model}
@@ -371,7 +397,6 @@ seats.
 
 \section{Conclusion, discussion, and future considerations}
 \label{sec:conc} 
-
 
 \bibliographystyle{jpe}
 \bibliography{main.bib}
