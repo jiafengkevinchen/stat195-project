@@ -351,7 +351,7 @@ As a final comparison against FiveThirtyEight's baseline, we map our prediction 
 Our results show that the Democrats will take over the majority in the House after the 2018 Midterm Elections with 94.5\% probability. This posterior comes after our prior trained on our historical data predicts a 17.2\% probability and the first posterior after the generic poll update that predicts a 87.7\% probability of a Democratic House. FiveThirtyEight's prediction, as of November 5, 2018, predicts that the Democrats will take control of the House with an 87.5\% probability.
 
 As is evident, our prediction becomes progressively confident after each additional polling result. This follows from our full posterior \[
-Y\mid Z \sim \Norm\pr{(\Sigma_0 + \Sigma_Z)^{-1} \pr{\Sigma_Z\mu_0 + \Sigma_0 \mu_Z}, \pr{\Sigma_Z^{-1} + \Sigma_0^{-1}}^{-1}}\] where both covariance matrices $\Sigma_0$ and $\Sigma_Z$ are positive definite.
+Y\mid Z \sim \Norm\pr{(\Sigma_0 + \Sigma_Z)^{-1} \pr{\Sigma_Z\mu_0 + \Sigma_0 \mu_Z}, \pr{\Sigma_Z^{-1} + \Sigma_0^{-1}}^{-1}}\] where both $\Sigma_0$  and $\Sigma_Z$ are positive definite and by our assumption of conditional independence of district polls, $\Sigma_Z$ is diagonal.
 
 
 \section{Figures}
