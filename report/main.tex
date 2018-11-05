@@ -104,21 +104,20 @@ Another feature with a significant number of missing entries was the percentage 
 For other features with a few NaN values, we made weak assumptions about the similarity of districts within a given year and used neighboring districts' mean to fill the empty entries. 
 
 \subsection{Polling Data for Posterior Updates}
-
 Once we constructed our preliminary model, we collect and utilize two kinds of polling data to update our prior: the generic ballot poll and a district-wide poll. Both the generic and district polling data were collected from FiveThirtyEight. The first is the generic polling data. FiveThirtyEight claims to use a slow moving generic ballot average, incorporating a larger number of polls at the cost of recency of polls.
 
  \begin{figure}[tbh]
   \centering
-  \includegraphics[scale=0.5]{general_polling}
+  \includegraphics[scale=0.45]{general_polling}
   \caption{FiveThirtyEight General Polling Data}
   \label{fig:genpolls}
 \end{figure}
 
-Above is the \Cref{fig:genpolls} from FiveThirtyEight, where the estimate is the dark lines and the highlighted badwidth around representing the 90\% confidence interval of all polls falling within the range. The second is the latest district-level polls, also collected by FiveThirtyEight. For this poll, as we will later explain in 3.3.2, we use the size of the district poll in order to bound the variance. 
+ \Cref{fig:genpolls} from FiveThirtyEight delineates the estimate by the solid lines while the highlighted badwidth around represents the 90\% confidence interval in which the polls fall. This is determined by a set of factors, including days from poll to election, size of poll, disagreement with other polls, lopsidedness of a race, among others.\footnote{\href{https://fivethirtyeight.com/features/how-the-fivethirtyeight-senate-forecast-model-works/}{How The FiveThirtyEight Senate Forecast Model Works}} The second is the latest district-level polls, also collected by FiveThirtyEight. As we will later discuss in 3.3.2, for both the generic as well as the district poll, we use the a combination of FiveThirtyEight's claimed confidence interval, poll size, and correlated results to estimate in-poll and between-poll variance. Though we have access to metadata such as the simple average error of the polling firm, grading of the quality of the poll, etc. with access to only the most recent polling results for the 2018 Midterm Election, we opt to make use of the provided data that are hold conjugacy properties while being subject to explicit error quantification.
 
  \begin{figure}[tbh]
   \centering
-  \includegraphics[scale=0.3]{district_polls}
+  \includegraphics[scale=0.4]{district_polls}
   \caption{FiveThirtyEight District Polling Data}
   \label{fig:distpolls}
 \end{figure}
@@ -356,6 +355,7 @@ seats.
 
 \section{Results}
 \label{sec:results}
+Before discussing the outcome of our prediction, we first verify our initial assumption that the underlying distribution is, in fact, Normal. We do so by plotting the following Q-Q plot. Indeed, through a quick visual inspection of \Cref{fig:qq}, the empirical quantile and the true Normal quantile form a roughly straight line, suggesting our assumptions hold water.
 
 \begin{figure}[tbh]
   \centering
@@ -364,12 +364,16 @@ seats.
   \label{fig:qq}
 \end{figure}
 
+Next, we examine the residuals and the fitted value regressing over them. \Cref{fig:diag} shows that the residuals are approximately centered around 0, and combined with \Cref{fig:qq}, we observe that their spread is also normal.
+
 \begin{figure}[tbh]
   \centering
   \includegraphics{diagnostics.pdf}
   \caption{Regression diagnostics in fitting \eqref{eq:beta}}
   \label{fig:diag}
 \end{figure}
+
+Our final prediction is 
 
 \begin{figure}[tbh]
   \centering
