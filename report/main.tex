@@ -294,7 +294,7 @@ To summarize, we use \begin{align*}
 where $ \sigma^2_{538}$ is the variance implied by FiveThirtyEight's 90\% confidence interval, and $\hat \sigma_{i,p}^2$ is the variance of polling results for district $i$ estimated by taking the empirical variance within district $i$.
 
 \subsection{Putting it all together: updating prior}
-From estimating $\theta_0$, for the competitive races in 2018, we obtain a prior estimate $Y \sim \Norm(\mu_0, \Sigma_0)$, where $\mu_0 = X\beta_0$. The polls form a vector $Z \mid Y \sim \Norm(\mu_Z, \Sigma_Z)$ for $\mu_Z, \Sigma_Z$ compatible with our assumptions. Therefore, our posterior is \[
+From estimating $\theta_0$, for the competitive races in 2018, we obtain a prior estimate $Y \sim \Norm(\mu_0, \Sigma_0)$, where $\mu_0 = X\beta_0$. The polls form a vector $Z \mid Y \sim \Norm(AY, \Sigma_Z)$ for $\mu_Z, \Sigma_Z$ compatible with our assumptions. Therefore, our posterior is \[
 Y\mid Z \sim \Norm\pr{(\Sigma_0 + \Sigma_Z)^{-1} \pr{\Sigma_Z\mu_0 + \Sigma_0 \mu_Z}, \pr{\Sigma_Z^{-1} + \Sigma_0^{-1}}^{-1}}.
 \]
 
