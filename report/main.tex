@@ -1,8 +1,10 @@
-\documentclass[11pt]{article}
+\documentclass[12pt, letterpaper]{article}
 \usepackage{macros}
 \usepackage{bbm}
 \usepackage{longtable}
 \usepackage{titlesec}
+\singlespacing
+
 
 
 \titleformat{\section}
@@ -19,7 +21,7 @@
 \hypersetup{urlcolor=Purple}
 
 % \singlespacing
-\newgeometry{left=1in, right=1in, bottom=1.3in}
+\newgeometry{margin=1in}
 \title{\sffamily\bfseries{Prediction of the 2018 Midterm Elections}}
 \author{Jiafeng Chen\thanks{Harvard College, \url{jiafengchen@college.harvard.edu}} \and Joon Hyuk Yang\thanks{Harvard College, \url{joonhyukyang@college.harvard.edu}}}
 \begin{document}
@@ -29,12 +31,12 @@
 We present a statistical model and a machine learning method to perform
 prediction for the 2018 elections of the U.S. House of Representatives. The main
 challenge of such a prediction problem is that the historical panel of election
-data is short---both in terms of years with adequate non-missing covariates 
-(2010--2016) and in terms of observations (435 per year). The shortness in years
-creates a generalization problem. All elections in 2010--2016 are considered
-Republican wave elections, and models may reasonably display favor towards
-Republicans. This problem could be mitigated if we condition on more and more
-data and avoid overfitting. However, the low number of observations becomes
+data is short---both in terms of years with adequate non-missing covariates
+(2010--2016) and in terms of observations ($\le 435$ per year). The shortness in
+years creates a generalization problem. All elections in 2010--2016 are
+considered Republican wave elections,\footnote{Maybe save for 2012, which is a presidential election that Democrats won.} and models may reasonably display favor
+towards Republicans. This problem could be mitigated if we condition on more and
+more data and avoid overfitting. However, the low number of observations becomes
 extremely problematic, as $p > N$ problems are quickly encountered---especially
 with complex basis transforms over the data. Furthermore, the changing political
 landscape of 2018 makes real-time polling data quite valuable, but with the lack
@@ -45,54 +47,21 @@ We devise a Bayesian approach that seeks to mitigate these problems. In our
 approach, the training data (data before 2018) is used to construct a prior for
 2018, which is then updated with polling data for 2018. Our model resembles
 what Nate Silver describes FiveThirtyEight's Classic House Forecast Model to
-be, where our prior estimation is akin to Silver's ``fundamentals'' and our
+be,\footnote{\url{https://fivethirtyeight.com/features/2018-house-forecast-methodology/}} 
+where our prior estimation is akin to Silver's ``fundamentals'' and our
 polling updating is akin to that in Silver's model. Our approach is fully
 compatible with additional features or polls, and admits a few extensions.
 Moreover, thanks to a few simplifying approximations we make, our approach is
 extremely computationally tractable, while remaining statistically faithful. 
 
-This report is organized as follows. \Cref{sec:data} discusses various datasets
-we use and preprocessing applied. \Cref{sec:model} discusses our statistical
+This report is organized as follows. \Cref{sec:model} discusses our statistical
 model and machine learning method, including parameterizations, estimation
-strategies and the considerations therein. \Cref{sec:results} displays various
+strategies and the considerations therein. \Cref{sec:data} discusses various datasets
+we use and preprocessing applied. \Cref{sec:results} displays various
 updated predictions and provides a brief discussion of potential shortcomings
 and alternative strategies. \Cref{sec:conc} concludes.
 
-\section{Data}
-\label{sec:data}
-\subsection{Informative Prior Features}
-We first consider a range of potentially relevant features to uncover an overall trend in Midterm Election results since 2010. We collect, process, then use a second-order polynomial basis transform on the features to discover nonlinear correlations in constructing our prior. The following features were used to inform our prior: Republican or Democratic incumbency, gender, voting pattern in the previous presidential election, percentage of minorities, presidential approval rating, candidates’ party alignment with the incumbent president, log of median income, percentage of district population with a Bachelor’s degree or above, one-hot encoding of each state, and the ratio of search frequency via Google Trends.
 
-One design choice we made in feature selection is to ignore Third-party candidates. Since 2010, there was a single Independent candidate (Jo Ann Emerson) who won a seat at the House, and given that there was no evidence to support a sudden surge in Third-party candidates in the 2018 election, we focus on the major parties.
-
-To illustrate the relative importance of these featurees, \Cref{fig:feature} shows the top 10
-features in terms of absolute value of weight coefficients. Empirically, we observe that minority percentage, percentage with Bachelor's degree, and presidential approval rating are features that carry the most weight. Note that \textit{rep\_to\_tot\_oct} and \textit{rep\_to\_tot\_nov} also exhibit strong predictive power, each representing the query frequency on Google Trends for the Republican candidate over both candidates in the first half of October and second half of October, respectively.
-
-\subsection{Google Trends}
-Google Trends, unlike Google Keyword Planner, shows the \textit{relative} popularity of search queries from a scale of 0 to 100. Relative popularity refers to the ratio of a query's search volumne to the sum of the search volumes of all possible queries. This allows for an easier and more intuitive comparison between terms via search across arbitrary periods of time. Moreover, Google Trends allows for a State-level (but not District-level) granularity in search query trends. We take advantage of this to compare how often a candidate's name was searched in within the State compared to his or her opponent for the first half of October versus the second half of October.
-
-There are two considerations with respect to using Google Trends data. One
-obvious but important point to note is that we do not discern the positivity or
-negativity of these queries. Instead, we simply observe the total number of
-queries. Though this may be a noisy estimate of the true support for a
-candidate, as was the case for the 2016 Presidential Election, we adhere to the
-notion that \textit{there is no such thing as bad publicity} \citep{berger2010positive} and The Economist's
-article that Google Trends ``provide real-time information that is not available
-anywhere else".\footnote{See this
-\href{https://www.economist.com/graphic-detail/2016/03/01/how-useful-is-google-search-data-when-predicting-primary-elections}{Economist} article.} Second, the usage of Google as a way to collect information in 2018 increased significantly compared to previous years. Furthermore, the use of Google is biased in favor of a younger population, and may be a disproportionate representation of interest for candidates. With these two caveats in mind, however, we find that the inclusion of Google Trends data augments the information of our prior significantly, compared to a prediction without it.
-
-\subsection{Preprocessing}
-
-In addition to the standard zero-mean and normalization procedure, we employed several techniques to filter, augment, and otherwise preprocess the collected data in order to produce a sensible outcome by making the most out of the data. In the case of gender, the feature set provided by the class was incomplete. In order to fill the NaN values, we use the gender-guesser library to help classify entries in which we lack the information. \footnote{\href{https://pypi.org/project/gender-guesser/}{gender-guesser} Python Library} In the case of a gender neutral names that were not classified in the training data, we populated them with 0.5.
-
-Another feature with a significant number of missing entries was the percentage of self-identifying Republicans versus Democrats in the district. In order to fill the missing entries with a reasonable approximation, we augmented the features with the 2016 State-level political allegiance data if no data was available for the district for any years, while fitting a forward-filling certain years in question for districts that have the data for some years but not others.
-
-For other features with a few NaN values, we made weak assumptions about the similarity of districts within a given year and used neighboring districts' mean to fill the empty entries. 
-
-\subsection{Polling Data for Posterior Updates}
-Once we constructed our preliminary model, we collect and utilize two kinds of polling data to update our prior: the generic ballot poll and a district-wide poll. Both the generic and district polling data were collected from FiveThirtyEight. The first is the generic polling data. FiveThirtyEight claims to use a slow moving generic ballot average, incorporating a larger number of polls at the cost of recency of polls.
-
- \Cref{fig:genpolls} from FiveThirtyEight delineates the estimate by the solid lines while the highlighted badwidth around represents the 90\% confidence interval in which the polls fall. This is determined by a set of factors, including days from poll to election, size of poll, disagreement with other polls, lopsidedness of a race, among others.\footnote{\href{https://fivethirtyeight.com/features/how-the-fivethirtyeight-senate-forecast-model-works/}{How The FiveThirtyEight Senate Forecast Model Works}} The second is the latest district-level polls, also collected by FiveThirtyEight. As we will later discuss in 3.3.2, for both the generic as well as the district poll, we use the a combination of FiveThirtyEight's claimed confidence interval, poll size, and correlated results to estimate in-poll and between-poll variance. Though we have access to metadata such as the simple average error of the polling firm, grading of the quality of the poll, etc. with access to only the most recent polling results for the 2018 Midterm Election, we opt to make use of the provided data that are hold conjugacy properties while being subject to explicit error quantification.
 
 \section{Statistical model and prediction function}
 \label{sec:model}
@@ -140,7 +109,7 @@ For the prior, $p_{\theta, X}(y)$, we assume a linear probability model,
     Y \sim \Norm(\underbrace{X\beta_0}_{\mu_0}, \Sigma_0)
     \label{eq:first_stage}
 \end{equation}
-\eqref{eq:first_stage} is misspecified since $Y_i \in [0,1]$ but the Normal
+\eqref{eq:first_stage} is misspecified since $Y_i$ is between $0$ and $1$, but the Normal
 distribution is supported on $\R$. A properly specified generalized linear model
 for $Y_i$ is a Beta linear model \citep[See][for an overview]{grun2011extended}.
 We have a few reasons for preferring \eqref{eq:first_stage} instead. First, we
@@ -148,8 +117,8 @@ note that for large values of $a,b$ in $\Beta(a,b)$, the distribution
 $\Beta(a,b)$ is approximately Normal. Second, we note that \[Y_i =
 \sum_{j=1}^M \frac{\mathbbm{1} (\text{vote}_j \in \{D,R\})}{\sum_{j'=1}^M \mathbbm{1}
 (\text{vote}_{j'} \in \{D,R\})} \mathbbm{1}(\text{vote}_j = R),\] for a district with
-$M$ voters, which should have an approximately Normal distribution, by the
-Central Limit Theorem. Third, computational methods for the Beta regression
+$M$ voters and parties $D,R$. $Y_i$ should have an approximately Normal distribution, by the
+Central Limit Theorem, since it is a type of empirical average. Third, computational methods for the Beta regression
 model---especially those that deal effectively with high-dimensional
 covariates---is much less readily available than those for the Normal linear
 model. We note additionally in \Cref{fig:qq} that the fitted residuals are
@@ -234,7 +203,7 @@ Optionally, we also estimate off-diagonal elements of $\Sigma$. If district boun
 \hat \Sigma_{ij} = \frac{1}{T}\sum_{t=1}^T \pr{y_{it} -x_{it}^T \hat \beta_0}\pr{y_{jt} -x_{jt}^T \hat \beta_0} \tag{Estimation for covariance}
 \label{eq:covar}
 \]
-This approach is no longer valid when district boundaries change over time. Nonetheless, we can still calculate $\hat \Sigma_{ij}$, ignoring district boundary changes.  Note that \eqref{eq:var} is inconsistent with \eqref{eq:covar}, and filling in estimates from \eqref{eq:covar} directly into $\Sigma$ would generate non-positive-definite matrices. As a result, we estimate the \emph{correlation} $\hat \rho_{ij}$ similar to \eqref{eq:covar},\footnote{We fill undefined values of $\hat \rho_{ij}$ with zero.} and use the estimate 
+This approach is no longer valid when district boundaries change over time. Nonetheless, we can still calculate $\hat \Sigma_{ij}$, ignoring district boundary changes.  Note that \eqref{eq:var} is inconsistent with \eqref{eq:covar}, and filling in estimates fromthe covariance estimation directly into $\Sigma$ would typically generate non-positive-definite matrices.\footnote{Alternatively, of course, we could discard the smoother in \eqref{eq:var} and just estimate variance as in \eqref{eq:covar}. We think the smoother is a more principled approach that takes into account redistricting. The approach in \eqref{eq:covar} is a second-best.} As a result, we estimate the \emph{correlation} $\hat \rho_{ij}$ similar to \eqref{eq:covar},\footnote{We fill undefined values of $\hat \rho_{ij}$ with zero.} and use the estimate 
  \[
 \hat \Sigma_{ij} = \hat \rho_{ij} \hat \Sigma_{ii} \hat \Sigma_{jj}
  \tag{Estimation for covariance with correlation}
@@ -247,11 +216,14 @@ differences.
 
 Now we discuss a few caveats regarding variance estimation. In principle, the variance we estimate should also take into account the uncertainty in $\hat \beta_0$. However, there is little consensus in uncertainty quantification for methods like elastic net and LASSO \citep{kyung2010penalized}, which remains an active research area. The fitting (along with cross-validation) is too expensive to bootstrap either, and we ignore the uncertainty in $\hat \beta_0$ for simplicity. Moreover, \eqref{eq:var} is likely an underestimate of variance---in linear regression, for example, we inflate the naive variance estimate by $n/(n-p)$, where $p$ is the degrees of freedom in a linear regression. The analogous inflation in our setting is with the degree of freedom in the elastic net \citep{zou2007degrees}---the estimate of the degree of freedom is about 100 for a dataset with $N=1500$; thus the inflation factor is about $\frac{1500}{1500-100} \approx 1.07$ for variance, which is sufficiently small to ignore. An alternative would be to estimate variance on a hold-out set, which is unbiased if the data is i.i.d.; we do not hold out for the sake of increasing training data.  
 
-As a notational matter, we now suppress the hat notation on $\beta_0, \Sigma_0.$
+As a notational matter, we now suppress the hat symbol on $\beta_0, \Sigma_0.$
 
 \subsubsection{Estimation for polling variance}
-
-We now turn to estimation of variance in the likelihood of polls, $\sigma_{Z_j}^2$ in \Cref{eq:polls}. The main problem in variance estimation is to account for the large between-poll variance unpredicted by a simple model. Suppose poll outcomes are indepedently $n_j^{-1} \Bin(n_j, Y_i)$ conditional on $Y_i$, then the (conditional) standard deviation is as low as $1.58$ percentage points for a poll with $1000$ respondents. However, polls of this size display much more variation than predicted by a simple independent Binomial model. Therefore, we assume that there is some structural between-poll variance and attempt to estimate it from data.  
+\label{subsub:var_poll}
+We now turn to estimation of variance in the likelihood of polls, $\sigma_{Z_j}^2$ in \Cref{eq:polls}. The main problem in variance estimation is to account for the large between-poll variance unpredicted by a simple model. Suppose poll outcomes are indepedently $n_j^{-1} \Bin(n_j, Y_i)$ conditional on $Y_i$, then the (conditional) standard deviation is as low as $1.58$ percentage points for a poll with $1000$ respondents. However, polls of this size display much more variation than predicted by a simple independent Binomial model. Therefore, we assume that there is some structural between-poll variance and attempt to estimate it from data. More precisely, we view the poll as \[
+Z_j \mid Y \sim n_j^{-1}\Bin(p(Y), n_j) + \epsilon_j, \, \epsilon_j \indep Y,
+\]
+where $\epsilon_j$ represents a between-poll variation, and the $n_j^{-1}\Bin(p(Y), n_j) $ contributes to 
 
 \TODO{Make this clearer}
 
@@ -342,6 +314,43 @@ seats.
 % \end{cases}
 % \]
 
+
+\section{Data}
+\label{sec:data}
+\subsection{Features for constructing a prior (\Cref{sec:model})}
+We first consider a range of potentially relevant features to uncover an overall trend in Midterm Election results since 2010. We collect, process, then use a second-order polynomial basis transform on the features to discover nonlinear correlations in constructing our prior. The following features were used to inform our prior: Republican or Democratic incumbency, gender, voting pattern in the previous presidential election, percentage of minorities, presidential approval rating, candidates’ party alignment with the incumbent president, log of median income, percentage of district population with a Bachelor’s degree or above, one-hot encoding of each state, and the ratio of search frequency via Google Trends.
+
+One design choice we made in feature selection is to ignore Third-party candidates. Since 2010, there was a single Independent candidate (Jo Ann Emerson) who won a seat at the House, and given that there was no evidence to support a sudden surge in Third-party candidates in the 2018 election, we focus on the major parties.
+
+To illustrate the relative importance of these featurees, \Cref{fig:feature} shows the top 10
+features in terms of absolute value of weight coefficients. Empirically, we observe that minority percentage, percentage with Bachelor's degree, and presidential approval rating are features that carry the most weight. Note that \textit{rep\_to\_tot\_oct} and \textit{rep\_to\_tot\_nov} also exhibit strong predictive power, which represent the query frequency on Google Trends for the Republican candidate over Republican and Democratic candidates in the first half of October and second half of October, respectively.
+
+\subsection{Google Trends}
+Google Trends, unlike Google Keyword Planner, shows the \textit{relative} popularity of search queries from a scale of 0 to 100. Relative popularity refers to the ratio of a query's search volumne to the sum of the search volumes of all possible queries. This allows for an easier and more intuitive comparison between terms via search across arbitrary periods of time. Moreover, Google Trends allows for a state-level (but not district-level) granularity in search query trends. We take advantage of this to compare how often a candidate's name was searched in within the state compared to his or her opponent for the first half of October versus the second half of October.
+
+There are two considerations with respect to using Google Trends data. One
+obvious but important point to note is that we do not discern the positivity or
+negativity of these queries. Instead, we simply observe the total number of
+queries. Though this may be a noisy estimate of the true support for a
+candidate, as was the case for the 2016 Presidential Election, we adhere to the
+notion that \textit{there is no such thing as bad publicity} \citep{berger2010positive} and The Economist's
+\href{https://www.economist.com/graphic-detail/2016/03/01/how-useful-is-google-search-data-when-predicting-primary-elections}{article} that Google Trends ``provide real-time information that is not available
+anywhere else". Second, the usage of Google as a way to collect information in 2018 increased significantly compared to previous years. Furthermore, the use of Google is biased in favor of a younger population, and may represent the interest of young voters disproportionately. With these two caveats in mind, however, we find that the inclusion of Google Trends data augments the information of our prior significantly, compared to a prediction without it.
+
+\subsection{Preprocessing}
+
+In addition to the standard zero-mean and normalization procedure, we employed several techniques to filter, augment, and otherwise preprocess the collected data in order to produce a sensible outcome by making the most out of the data. In the case of gender, the feature set provided by the class was incomplete. In order to fill the missing values, we use the gender-guesser library to help classify entries in which we lack the information.\footnote{Python \href{https://pypi.org/project/gender-guesser/}{\texttt{gender-guesser}} Library} In the case of a gender neutral names that were not classified in the training data, we populated them with 0.5.
+
+Another feature with a significant number of missing entries was the percentage of self-identifying Republicans versus Democrats in the district. In order to fill the missing entries with a reasonable approximation, we augmented the features with the 2016 State-level political allegiance data if no data was available for the district for any years, while fitting a forward-filling certain years in question for districts that have the data for some years but not others. For other features with a few missing values, we made weak assumptions about the similarity of districts within a given year and the mean within a year to fill the empty entries. 
+
+\subsection{Polling Data for Posterior Updates}
+Once we constructed our preliminary model, we collect and utilize two kinds of polling data to update our prior: the generic ballot poll and a district-wide poll. Both the generic and district polling data were collected from FiveThirtyEight. The first is the generic ballot question, which simply asks a respondent whether she would vote for a Democrat or a Republican. FiveThirtyEight claims to use a slow moving generic ballot average, incorporating a larger number of polls at the cost of recency of polls.
+
+\Cref{fig:genpolls} from FiveThirtyEight delineates the estimate by the solid lines while the highlighted badwidth around represents the 90\% confidence interval in which the polls fall. This is determined by a set of factors, including days from poll to election, size of poll, disagreement with other polls, lopsidedness of a race, among others.\footnote{\href{https://fivethirtyeight.com/features/how-the-fivethirtyeight-senate-forecast-model-works/}{How The FiveThirtyEight Senate Forecast Model Works}} The second is the latest district-level polls, also collected by FiveThirtyEight. As we will later discuss in \Cref{subsub:var_poll}, for both the generic as well as the district poll, we use the a combination of FiveThirtyEight's confidence interval, polls' sample size, and empirical between-poll dispersions to estimate within-poll and between-poll variance.\footnote{We take the view that the variance of polls decomposes to a within and between part---we can think of a poll result to be a scaled Binomial distribution with additive noise. The variance of the sample-size-scaled Binomial is within-poll variance, which represents the poll's sampling error. The variance of the (theorized) additive noise is to represent a betwee-poll variance that explains the dispersion of poll results unpredicted by the purely Binomial model. See \Cref{subsub:var_poll} for details.} Though we have access to metadata such as the simple average error of the polling firm, grading of the quality of the poll, etc., with access to only the most recent polling results for the 2018 Midterm Election, we opt to make use of the provided data that are hold conjugacy properties while being subject to explicit error quantification.
+
+For the generic congressional ballot, we use all polls fetched from FiveThirtyEight since October 15, 2018. For the district-wide congressional polls, we use the most recent three polls in each district. These choices are rather arbitrary, since we cannot validate our choices given we do not yet observe the outcome variable.
+
+
 \section{Results}
 \label{sec:results}
 \subsection{Regression diagnostics}
@@ -350,12 +359,13 @@ Before discussing the outcome of our prediction, we first verify our initial ass
 \subsection{Final Projection and Baseline Comparisons}
 Our final prediction for the 2018 Midterm Elections is shown in \Cref{fig:hists}. We observe the empirical distributions of our prior, posterior after updating with the generic ballot, and the final posterior after updating with the district-level polls from \Cref{sub:altogether}. 
 
-As discussed in \Cref{sec:data,sec:model}, our prior is informed by the collected historical data. Reflecting the ground truth trend of Republican dominance in the House, our prior is centered at a Republican majority with the likelihood of Democrats taking the majority at 17\%. With subsequent polling updates to our prior, we observe the posterior shift to a Democratic majority with a slightly higher peak. The dramatic shift from prior to posterior highlights the importance of our two-step procedure, where the data is taken to estimate a prior instead of performing predictions directly with training data.
+As discussed in \Cref{sec:data,sec:model}, our prior is informed by the collected historical data. Reflecting the ground truth trend of Republican dominance in the House, our prior is centered at a Republican majority with the likelihood of Democrats taking the majority at 17\%. With subsequent polling updates to our prior, we observe the posterior shift to a Democratic majority with a slightly higher peak. The dramatic shift from prior to posterior highlights the importance of our two-step procedure, where the data is taken to estimate a prior instead of performing predictions directly with training data.\footnote{The probabilities displayed here might change on a daily basis given new polling data. See the appendix for our final estimates.}
 
-Alternatively, the high degree of updating might lead one to ask whether the prior estimation is needed in the first place, since the polling data seems to drive our results. To illustrate the informative nature of our data-derived prior, we plot the shift in distribution with a large-variance prior $\Norm(0.5\bm{1}, 10I)$ in \Cref{fig:hists_diffuse}. We see that having a prior informed from data helps our model tremendously with districts for which we do not have polling data. 
+Alternatively, the high degree of updating might lead one to ask whether the prior estimation is needed in the first place, since the polling data seems to drive our results. To illustrate the informative nature of our data-derived prior, we plot the shift in distribution with a large-variance prior $\Norm(0.5\bm{1}, 10I)$ in \Cref{fig:hists_diffuse}. We see that having a prior informed from data (1) helps our model tremendously with districts for which we do not have polling data and (2) crucially estimates $\Sigma_0$ which is important for updating.
 
+As a robustness check, we plot the updating for both a diagonal specification of $\Sigma_0$ and a fully-general specification. Our final posterior presented in \Cref{fig:hists} makes use of $\Sigma_0$ for our prior covariance matrix where the off-diagonal entries are estimated via the empirical variation over time assuming unchanged district boundaries. If we assume prior independence across each district, we have a diagonal $\Sigma_0$, which produces the result of \Cref{fig:diagonal_prior}. A quick visual inspection shows that posterior is centered slightly more conservatively, giving the Democrats a slightly smaller margin of victory (86\% chance of winning the majority after the generic ballot update, and 94\% after the district poll update). The difference, however, is not large. 
 
-Our final posterior presented in \Cref{fig:hists} makes use of $\Sigma_0$ for our prior covariance matrix where the off-diagonal entries are estimated via the empirical variation over time assuming unchanged district boundaries. If we assume prior independence across each district, we have a diagonal $\Sigma_0$, which produces the result of \Cref{fig:diagonal_prior}. A quick visual inspection shows that posterior is centered slightly more conservatively, giving the Democrats a slightly smaller margin of victory (86\% chance of winning the majority after the generic ballot update, and 94\% after the district poll update). The difference, however, is not large. 
+\subsection{Comparing against the state-of-the-art}
 
 \Cref{fig:538_hist} provides FiveThirtyEight's predictions on the day before the Election as a baseline against which we can compare our own predictions. Note the wider tails in FiveThirtyEight's prediction and a more favorable mean for the Democrats than our predictions.
 
@@ -368,6 +378,10 @@ Our results show that the Democrats will take over the majority in the House aft
 
 As is evident, our prediction becomes progressively confident after each additional polling result. This follows from our full posterior calculation \eqref{eq:normal_cond} where both $\Sigma_0$  and $\Sigma_Z$ are positive definite and by our assumption of conditional independence of district polls, $\Sigma_Z$ is diagonal.
 
+
+\bibliographystyle{jpe}
+\bibliography{main.bib}
+
 \appendix
 \section{Figures}
 \label{sec:figures}
@@ -375,7 +389,7 @@ As is evident, our prediction becomes progressively confident after each additio
 \begin{figure}[tbh]
   \centering
   \includegraphics[scale=0.8]{feature_coeff}
-  \caption{Some feature coefficients}
+  \caption{Some feature coefficients. Positive coefficients roughly mean ``associated with Republicans winning,'' and negative coefficients for Democrats}
   \label{fig:feature}
 \end{figure}
 
@@ -458,7 +472,9 @@ As is evident, our prediction becomes progressively confident after each additio
   \label{fig:538_map}
 \end{figure}
 
-\bibliographystyle{jpe}
-\bibliography{main.bib}
+\section{District-by-district projections}
+\input{res.txt}
+
+\input{projected_results_new.tex}
 
 \end{document}
