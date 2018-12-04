@@ -178,16 +178,28 @@ mimicking the \emph{logit-normal model} \cite[page 283]{agresti2015foundations}-
 \section{Fitting $\Sigma_0$}
 \label{sec:sigma}
 
-\section{Polling data}
-\label{sec:polling}
-
-Furthermore, access to anonymized browsing history from Interet Service Providers (ISPs) may allow us to uncover latent sentiments that may be interpolated at poll-time. This will be further expounded in Model Selection. 
-
 \section{Models}
-\subsection{Browsing History Incorporation}
-Our prediction results rely heavily on the validity of our posterior update, which is dominated by how informative the polling data may be. However, polling data may be noisy at best and worse misleading. In fact, each pollster has such high variance that there are pollster ratings, which Part I did not explicitly take into account. The aggregate or \textit{overall} trend in polls is what Nate Silver explains as being of greater interest.\footnote{Silver argues that both macro and micro trends from polling data are important--the former being the aggregate poll result and the latter being the pollster ratings. More information at \url{fivethirtyeight.com/features/which-pollsters-to-trust-in-2018}} In order to mitigate the noisy nature of polls and the effects of poll-to-poll variance, given more resources, we could introduce an intermediate step between poll data and votes by introducing browsing data.
+\subsection{Browsing History Augmented Polling}
+Our prediction results rely heavily on the validity of our posterior update, which is dominated by how informative we think the polling data is. However, various polls are collected in several districts while none are conducted in others. In fact, each pollster has such high variance that there are pollster ratings (e.g. A, B, C, etc.), which Part I did not explicitly take into account. The aggregate or \textit{overall} trend in polls is what Nate Silver explains as being of greater interest.\footnote{Silver argues that both macro and micro trends from polling data are important--the former being the aggregate poll result and the latter being the pollster ratings. More information at \url{fivethirtyeight.com/features/which-pollsters-to-trust-in-2018}} In order to mitigate the noisy nature of polls and account for missing polls for districts, given more resources, we could introduce an intermediate data between polls and votes.
 
-On a high level, we use browsing history $B$ for each district and assume that given this, polling results are distributed Normally. Instead of solely relying on voting results to fit the parameters of $Z$, we now introduce a tertiary variable through which we can (1) potentially use to directly compute $Y \ | \ B$ or, in our case more parochially, (2) easily derive the $\Sigma_Z$ by calculating $\hat{Z} \ | \ B$ and calculating the variance of the newly acquired live poll against our $\hat{Z}$.
+One such candidate could be people's browsing history, $B$, for each district. Instead of solely relying on voting results to fit the parameters of $Z$, we can regress over $B$ to predict the polling outcome $\tilde{Z}$. In turn, we can use a kernel method to weigh various polls and even predict what polls would look like in unpolled districts. By introducing the intermediate data, $B$ in this case, we effectively \textit{hallucinate} polls that can be used to update our posterior. Realistically we do not have labels for each individual browsing history with a political affiliation, which means we must resort to techniques such as the EM algorithm to estimate the maximum likelihood. More formally, we can assume polling results as being a bimodal Gaussian mixture model such that $Z = (1 - \Delta) \cdot Z_1 + \Delta \cdot Z_2$ where $Z_k \sim \mathcal{N}(\mu_k, \Sigma_k)$ and Pr$(\Delta = 1) = \pi$. To approximate $\theta_k = (\mu_k, \Sigma_k)$ for the densities $\phi_{\theta_k}(z)$, we repeat the following \textit{Expectation} step \Cref{eq:expectation} and \textit{Maximization} steps \Cref{eq:maximization1}, \Cref{eq:maximization2} until convergence, such that
+
+\begin{equation}
+\hat{\gamma}_i = \frac{\hat{\pi}\phi_{\hat{\theta}_1}(z_i)}{\hat{\pi}\phi_{\hat{\theta}_1}(z_i) + (1-\hat{\pi})\phi_{\hat{\theta}_2}(z_i)} \text{\ ,} \qquad i = 1,2,..., N
+\label{eq:expectation}
+\end{equation}
+
+\begin{equation}
+\hat{\mu}_k = \frac{\sum_{i=1}^{N}\{\hat{\gamma_i}^{I(k=1)} + (1-\hat{\gamma_i})^{I(k=2)}\}z_i}{\sum_{i=1}^{N}\{\hat{\gamma_i}^{I(k=1)} + (1-\hat{\gamma_i})^{I(k=2)}\}} \text{\ ,} \qquad k \in \{1,2\}
+\label{eq:maximization1}
+\end{equation}
+
+\begin{equation}
+\hat{\Sigma}_{1} = \frac{\sum_{i=1}^{N}\hat{\gamma}_i(z_i - \hat{\mu}_1)(z_i - \hat{\mu}_1)^T}{\sum_{i=1}^{N}\hat{\gamma}_i} \qquad \hat{\Sigma}_{2} = \frac{\sum_{i=1}^{N}(1-\hat{\gamma}_i)(z_i - \hat{\mu}_2)(z_i - \hat{\mu}_2)^T}{\sum_{i=1}^{N}(1-\hat{\gamma}_i)}
+\label{eq:maximization2}
+\end{equation}
+
+where $\hat{\gamma}_i = \E(\Delta_i|\theta, Z)$ is the responsibility of, in this case, class 1 (e.g. Republican). Additionally, we must initialize the parameters $\theta = (\hat{\mu}_k, \hat{\Sigma}_k, \hat{\pi})$, which we can assign randomly with some  assumptions for better performance as illustrated in \cite{comarela2018browse}. Ultimately, by fitting data provided by Interet Service Providers against poll results, this method (\Cref{fig:browsing}) can be used to weigh various polls for a particular district as a Nadaraya-Watson kernel-weighted average, where the kernel $K_{\lambda}(\tilde{z}, z_i) = D(|z_i-\tilde{z}|/\lambda)$ and $D(t) = \phi(t)$. Furthermore, for districts without any polls, $\tilde{Z}_k \sim \mathcal{N}(\mu_k, \Sigma_k)$ can be used directly to proxy a poll by sampling from the density function.  
 
 \begin{figure}[tbh]
   \centering
@@ -196,21 +208,8 @@ On a high level, we use browsing history $B$ for each district and assume that g
   \label{fig:browsing}
 \end{figure}
 
-\begin{figure}[tbh]
-  \centering
-  \includegraphics[scale=0.4]{browse_table}
-  \caption{Example of a simple, 2-feature, unnormalized browsing history to fit a classifier for individuals to predict poll results of 75\% voting Democrat.}
-  \label{fig:browse_table}
-\end{figure}
+This is admittedly a roundabout way of calculating $\E(Y|Z,B)$. Although directly computing $\E(Y|B)$ may be attractive, often (including browsing history) it is difficult to find labeled data (political inclination), and even when using approximation algorithms, the number of polls far outnumber elections, making it a richer dataset to fit our prediction function.
 
-The method (\Cref{fig:browsing}) entails the use of historic polling data and browsing history to fit a classifier function in each district that predicts proclivity toward a party. Given ISP's data on how a registered Democrat or Republican browses during the same time frame in which a poll is conducted, we can fit parameters of a function as simple as a regularized regression or even a neural network to classify browsers as voters (\Cref{fig:browse_table}). Model selection could depend on how we record browsing history; if we filter down to a few key websites and monitor voters' respective traffic, a simple regression model may be sufficient, while if we chose to incorporate a large number of features, we may choose a neural network of the form
-\begin{align*}
-H_m &= \sigma(\alpha_{0m} + \alpha_m^TB), \text{\ where \ } m \in [1,M]\\
-Z_{k}^{(j)} &= \beta_{0k}^{(j)} + \beta_k^{(j)T}H, \text{\ where \ } k \in \{0, 1\}\\
-\end{align*}
-where the activation function that introduces non-linearity $\sigma(\cdot)$ could be a sigmoid, a Rectified Linear Unit (ReLU), or Gaussian radial basis function; $H$ is the hidden layer(s) with $M$ units; and $Z_k^{(j)}$ is the aggregate polling result of district $j$ for party $k$ in the timeframe during which browsing history $B$ is collected. Using stochastic gradient descent as our fitting method, we can fit the parameters to translate browsing history to expected voter behavior or compute variance of pollsters against our predicted $\hat{Z}$. An obvious drawback of this model is the difficulty in access to historic browsing and polling data.
-
-\subsection{CANTOR}
 
 \section{Discussion and conclusion}
 \label{sec:conc}
