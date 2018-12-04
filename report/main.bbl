@@ -1,0 +1,30 @@
+\begin{thebibliography}{4}
+\newcommand{\enquote}[1]{``#1''}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem[{Berger, Sorensen, and Rasmussen(2010)}]{berger2010positive}
+Berger, Jonah, Alan~T Sorensen, and Scott~J Rasmussen. 2010.
+\newblock \enquote{Positive effects of negative publicity: When negative
+  reviews increase sales.}
+\newblock \emph{Marketing Science} 29~(5):815--827.
+
+\bibitem[{Gr{\"u}n, Kosmidis, and Zeileis(2011)}]{grun2011extended}
+Gr{\"u}n, Bettina, Ioannis Kosmidis, and Achim Zeileis. 2011.
+\newblock \enquote{Extended beta regression in R: shaken, stirred, mixed, and
+  partitioned.}
+\newblock Tech. rep., Working Papers in Economics and Statistics.
+
+\bibitem[{Kyung et~al.(2010)Kyung, Gill, Ghosh, Casella
+  et~al.}]{kyung2010penalized}
+Kyung, Minjung, Jeff Gill, Malay Ghosh, George Casella et~al. 2010.
+\newblock \enquote{Penalized regression, standard errors, and Bayesian lassos.}
+\newblock \emph{Bayesian Analysis} 5~(2):369--411.
+
+\bibitem[{Zou et~al.(2007)Zou, Hastie, Tibshirani et~al.}]{zou2007degrees}
+Zou, Hui, Trevor Hastie, Robert Tibshirani et~al. 2007.
+\newblock \enquote{On the “degrees of freedom” of the lasso.}
+\newblock \emph{The Annals of Statistics} 35~(5):2173--2192.
+
+\end{thebibliography}
