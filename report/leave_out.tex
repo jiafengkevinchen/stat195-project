@@ -1,16 +1,17 @@
-\begin{tabular}{lllr}
+\begin{tabular}{lrlr}
 \toprule
         Variable left out / Model name &  $R^2$ &       Variable left out / Model name &  $R^2$ \\
 \midrule
-         \texttt{minority\_percentage} & 0.7649 &  \texttt{same\_as\_pres\_party\_rep} & 0.8215 \\
-               \texttt{rep\_incumbent} & 0.8062 &             \texttt{dem\_is\_female} & 0.8217 \\
+         \texttt{minority\_percentage} & 0.7649 &         \texttt{kernel\_sigma\_bw=1} & 0.8229 \\
+               \texttt{rep\_incumbent} & 0.8062 &         \texttt{kernel\_sigma\_bw=5} & 0.8229 \\
  \texttt{percent\_bachelor\_or\_above} & 0.8086 &                \texttt{dem\_percent} & 0.8230 \\
               \texttt{gradient\_boost} & 0.8138 &             \texttt{rep\_is\_female} & 0.8235 \\
                \texttt{pres\_approval} & 0.8177 &               \texttt{lasso\_select} & 0.8238 \\
-             \texttt{log\_med\_income} & 0.8182 &                       \texttt{logit} & 0.8259 \\
-            \texttt{rep\_to\_tot\_oct} & 0.8183 &               \texttt{kernel\_sigma} & 0.8267 \\
-            \texttt{rep\_to\_tot\_nov} & 0.8211 &              \texttt{dem\_incumbent} & 0.8272 \\
+             \texttt{log\_med\_income} & 0.8182 &        \texttt{kernel\_sigma\_bw=.3} & 0.8245 \\
+            \texttt{rep\_to\_tot\_oct} & 0.8183 &        \texttt{kernel\_sigma\_bw=.1} & 0.8253 \\
+            \texttt{rep\_to\_tot\_nov} & 0.8211 &                       \texttt{logit} & 0.8259 \\
+   \texttt{same\_as\_pres\_party\_rep} & 0.8215 &              \texttt{dem\_incumbent} & 0.8272 \\
                          \texttt{full} & 0.8215 &                   \texttt{quadratic} & 0.8324 \\
-                                       &        &  \texttt{same\_as\_pres\_party\_dem} & 0.8402 \\
+              \texttt{dem\_is\_female} & 0.8217 &  \texttt{same\_as\_pres\_party\_dem} & 0.8402 \\
 \bottomrule
 \end{tabular}
